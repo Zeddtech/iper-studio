@@ -6,7 +6,7 @@ import {schemaTypes} from './schemas'
 
 export default defineConfig({
   name: 'default',
-  title: 'chatUp',
+  title: 'Piper',
 
   projectId: 'i8wsxnih',
   dataset: 'production',
