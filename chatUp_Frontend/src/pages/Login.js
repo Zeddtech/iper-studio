@@ -3,7 +3,8 @@ import logo from "../asset/logo.svg";
 import { useRef, useState, useEffect } from "react";
 import { useGcontex } from "../hooks/ContextProvider";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import useInput from "../hooks/useInput";
+
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const Login = () => {
   const { setAuth } = useGcontex();
@@ -13,9 +14,8 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/";
 
   const userRef = useRef();
-  const errRef = useRef();
 
-  const [user, resetUser, atrr] = useInput("user", "");
+  const [user, setUser] = useLocalStorage("user", "");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
 
@@ -31,9 +31,9 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      resetUser();
+      setUser("");
       setPwd("");
-      navigate(from, { replace: true });
+      //   navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -44,7 +44,6 @@ const Login = () => {
       } else {
         setErrMsg("Login Failed");
       }
-      errRef.current.focus();
     }
   };
 
@@ -111,7 +110,8 @@ const Login = () => {
                     id="username"
                     ref={userRef}
                     autoComplete="off"
-                    {...atrr}
+                    onChange={e => setUser(e.target.value)}
+                    value={user}
                     required
                     className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
                   />

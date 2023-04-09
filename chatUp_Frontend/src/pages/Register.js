@@ -3,7 +3,7 @@ import logo from "../asset/logo.svg";
 import { useRef, useState, useEffect } from "react";
 import { useGcontex } from "../hooks/ContextProvider";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import useInput from "../hooks/useInput";
+
 import useLocalStorage from "../hooks/useLocalStorage";
 const initvalue = {
   firstName: "",
