@@ -4,36 +4,38 @@ import { useRef, useState, useEffect } from "react";
 import { useGcontex } from "../hooks/ContextProvider";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import useInput from "../hooks/useInput";
-
+import useLocalStorage from "../hooks/useLocalStorage";
+const initvalue = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  Cpassword: "",
+};
 const Register = () => {
+  const [ErrMsg, setErrMsg] = useState("hhfgf");
+  const [value, setValue] = useLocalStorage("register", initvalue);
+
   const { setAuth } = useGcontex();
 
   const navigate = useNavigate();
+
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
   const userRef = useRef();
-  const errRef = useRef();
 
-  const [user, resetUser, userAttribs] = useInput("user", "");
-  const [pwd, setPwd] = useState("");
-  const [errMsg, setErrMsg] = useState("");
-
-  useEffect(() => {
-    userRef.current.focus();
-  }, []);
-
-  useEffect(() => {
-    setErrMsg("");
-  }, [user, pwd]);
+  // useEffect(() => {
+  //   setErrMsg("");
+  // }, [value]);
 
   const handleSubmit = async e => {
     e.preventDefault();
 
     try {
-      resetUser();
-      setPwd("");
-      navigate(from, { replace: true });
+      setValue(initvalue);
+      // setPwd("");
+      // navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -44,9 +46,12 @@ const Register = () => {
       } else {
         setErrMsg("Login Failed");
       }
-      errRef.current.focus();
     }
   };
+
+  function handleChange(key, text) {
+    setValue(prev => ({ ...value, [key]: text }));
+  }
 
   return (
     <section className="bg-white">
@@ -98,8 +103,21 @@ const Register = () => {
                 Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
               </p>
             </div>
+            <div className="flex items-center justify-center mt-8 mb-4">
+              <p
+                aria-live="assertive"
+                role="alert"
+                className={
+                  ErrMsg
+                    ? "bg-red-100 border border-red-400 text-red-700 px-4 py-1 text-sm rounded relative"
+                    : "invisible"
+                }
+              >
+                {ErrMsg}
+              </p>
+            </div>
 
-            <form className="mt-8 grid grid-cols-6 gap-6">
+            <form className=" grid grid-cols-6 gap-6" onSubmit={handleSubmit}>
               <div className="col-span-6 sm:col-span-3">
                 <label className="block">
                   <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
@@ -111,7 +129,8 @@ const Register = () => {
                     id="firstName"
                     ref={userRef}
                     autoComplete="on"
-                    {...userAttribs}
+                    value={value.firstName}
+                    onChange={e => handleChange("firstName", e.target.value)}
                     required
                     className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
                   />
@@ -127,7 +146,8 @@ const Register = () => {
                     name="lastName"
                     id="lastName"
                     autoComplete="on"
-                    {...userAttribs}
+                    onChange={e => handleChange("lastName", e.target.value)}
+                    value={value.lastName}
                     required
                     className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
                   />
@@ -143,6 +163,8 @@ const Register = () => {
                     name="email"
                     id="email"
                     autoComplete="on"
+                    onChange={e => handleChange("email", e.target.value)}
+                    value={value.email}
                     required
                     className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
                   />
@@ -155,9 +177,11 @@ const Register = () => {
                     Password
                   </span>
                   <input
-                    type="text"
+                    type="password"
                     name="password"
                     id="password"
+                    onChange={e => handleChange("password", e.target.value)}
+                    value={value.password}
                     required
                     className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
                   />
@@ -170,9 +194,11 @@ const Register = () => {
                     Confirm Password
                   </span>
                   <input
-                    type="text"
+                    type="password"
                     name="Cpassword"
                     id="Cpassword"
+                    onChange={e => handleChange("Cpassword", e.target.value)}
+                    value={value.Cpassword}
                     required
                     className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
                   />
