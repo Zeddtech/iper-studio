@@ -3,7 +3,7 @@ import logo from "../asset/logo.svg";
 import { useRef, useState, useEffect } from "react";
 import { useGcontex } from "../hooks/ContextProvider";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-
+import { client } from "../sanityConfig";
 import useLocalStorage from "../hooks/useLocalStorage";
 const initvalue = {
   firstName: "",
@@ -33,8 +33,16 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      setValue(initvalue);
-      // setPwd("");
+      // setValue(initvalue);
+
+      client
+        .createIfNotExists({
+          _type: "user",
+          email: "sop1%&^",
+          _id: "jshg",
+        })
+        .then(res => console.log(res));
+
       // navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {

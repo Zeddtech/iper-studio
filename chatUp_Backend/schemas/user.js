@@ -7,14 +7,41 @@ export default defineType({
   icon,
   fields: [
     defineField({
-      name: 'username',
-      title: 'UserName',
+      name: 'firstName',
+      title: 'Firstname',
       type: 'string',
+      validation: (Rule) =>
+        Rule.regex(/^[a-zA-Z\-]+$/, {
+          name: 'FirstName',
+          invert: false,
+        }).error('invalid name'),
     }),
+    defineField({
+      name: 'lastName',
+      title: 'LastName',
+      type: 'string',
+      validation: (Rule) =>
+        Rule.regex(/^[a-zA-Z\-]+$/, {
+          name: 'LastName',
+          invert: false,
+        }),
+    }),
+    defineField({
+      name: 'email',
+      title: 'Email',
+      type: 'string',
+      validation: (Rule) => Rule.email().error('enter a valid email'),
+    }),
+
     defineField({
       name: 'image',
       title: 'Image',
       type: 'string',
+    }),
+    defineField({
+      name: 'verified',
+      title: 'Verified Email?',
+      type: 'boolean',
     }),
   ],
 })
