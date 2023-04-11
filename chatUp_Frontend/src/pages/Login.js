@@ -7,9 +7,11 @@ import piper from "../asset/piper.mp4";
 import logo from "../asset/logo.svg";
 import axios from "axios";
 import { client } from "../sanityConfig";
+import { useGcontex } from "../hooks/ContextProvider";
+import useLocalStorage from "../hooks/useLocalStorage";
 function Login() {
   const [userToken, setuserToken] = useState("");
-  const [user, setUser] = useState();
+  const [user_id, setUser_id] = useLocalStorage("user_id", "");
   const navigate = useNavigate();
   useEffect(() => {
     if (userToken) {
@@ -24,7 +26,6 @@ function Login() {
           }
         )
         .then(res => {
-          setUser(res.data);
           console.log(res.data);
           const {
             id,
@@ -44,7 +45,13 @@ function Login() {
               image: picture,
               verified: verified_email,
             })
-            .then(res => navigate("/", { replace: true }));
+            .then(res => {
+              console.log(res);
+              //   setUser_id(res._id);
+              localStorage.setItem("user_id", res._id);
+
+              navigate("/", { replace: true });
+            });
         })
         .catch(error =>
           console.log(error.response?.data.error.message || error)

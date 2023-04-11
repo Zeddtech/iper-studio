@@ -1,18 +1,18 @@
 import { createContext, useContext, useState } from "react";
 
-const AuthContext = createContext({});
+const UserContext = createContext({});
 
-export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState({});
+export const UserProvider = ({ children }) => {
+  const [userData, setUserData] = useState();
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth }}>
+    <UserContext.Provider value={{ userData, setUserData }}>
       {children}
-    </AuthContext.Provider>
+    </UserContext.Provider>
   );
 };
 const useGcontex = () => {
-  return useContext(AuthContext);
+  return useContext(UserContext);
 };
 
-export { AuthContext, useGcontex };
+export { UserContext, useGcontex };
