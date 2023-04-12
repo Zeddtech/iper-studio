@@ -1,2 +1,9 @@
 export { default as Sidebar } from "./Sidebar";
 export { default as Pin } from "./Pins";
+export { default as LgScreenSideBar } from "./LgScreenSideBar";
+export { default as MobileNav } from "./MobileNav";
+export { default as Navbar } from "./Navbar";
+export { default as Feed } from "./Feed";
+export { default as PinDetail } from "./PinDetail";
+export { default as CreatePin } from "./CreatePin";
+export { default as Search } from "./Search";

@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../asset/logo.svg";
 import { RiHomeFill } from "react-icons/ri";
 import { IoIosArrowForward } from "react-icons/io";
+import { useGcontex } from "../hooks/ContextProvider";
 const isNotActiveStyle =
   "flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-200 ease-in-out capitalize";
 const isActiveStyle =
@@ -13,6 +14,7 @@ function Sidebar({ closeToggle, user }) {
   function handleCloseSidebar() {
     closeToggle();
   }
+  const { userData } = useGcontex();
   return (
     <div className="flex flex-col justify-between bg-white h-full overflow-y-scroll min-w-210 hide-scrollbar">
       <div className="flex flex-col">
@@ -55,18 +57,18 @@ function Sidebar({ closeToggle, user }) {
           ))}
         </div>
       </div>
-      {user && (
+      {userData && (
         <Link
-          to={`user-profile/${user._id}`}
+          to={`user-profile/${userData._id}`}
           className="flex my-5 mb-3 gap-2 p-2 items-center bg-white rounded-lg shadow-lg mx-3"
           onClick={handleCloseSidebar}
         >
           <img
-            src={user.picture}
+            src={userData.image}
             className="w-10 h-10 rounded-full"
             alt="user-profile"
           />
-          <p>{user.given}</p>
+          <p>{userData.firstName}</p>
           <IoIosArrowForward />
         </Link>
       )}
