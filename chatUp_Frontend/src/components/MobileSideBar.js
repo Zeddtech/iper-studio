@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import logo from "../asset/logo.svg";
 import { useGcontex } from "../hooks/ContextProvider";
 import Sidebar from "./Sidebar";
-function MobileNav() {
+function MobileSideBar() {
   //   sidebar state
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const { userData } = useGcontex();
@@ -53,4 +53,4 @@ function MobileNav() {
   );
 }
 
-export default MobileNav;
+export default MobileSideBar;

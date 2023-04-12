@@ -22,6 +22,7 @@ function Login() {
             headers: {
               Authorization: `Bearer ${userToken}`,
               Accept: "application/json",
+              // SameSite: "Strict",
             },
           }
         )
