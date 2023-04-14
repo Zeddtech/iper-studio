@@ -1,31 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useRevalidator } from "react-router-dom";
-import {
-  MdDownloadForOffline,
-  MdOutlineDownloadForOffline,
-} from "react-icons/md";
+import { Link, useNavigate } from "react-router-dom";
+import { MdOutlineDownloadForOffline } from "react-icons/md";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { BsFillArrowUpRightCircleFill } from "react-icons/bs";
 import { urlFor } from "../sanityConfig";
 import { useGcontex } from "../hooks/ContextProvider";
 import { savePin } from "../utils/managePins";
+import Alert from "./Alert";
 function Pin({ pin }) {
   const { imageUrl, postedBy, destination, savedBy } = pin;
   const [postHovered, setPostHovered] = useState(false);
   const [savingPost, setSavingPost] = useState(false);
+  const [savedPost, setsavedPost] = useState(false);
+  const [savedPostLength, setsavedLength] = useState(savedBy?.length);
+  const [showAlert, setShowAlert] = useState(false);
   const { userData } = useGcontex();
-  const [savedPost, setsavedPost] = useState();
   const navigate = useNavigate();
-  const revalidate = useRevalidator();
+  // since the global context doesnt load early so evaluating the userdata triggers an error...
   useEffect(() => {
     setsavedPost(
       pin?.savedBy?.map(item => item?.savedBy?._id)?.includes(userData?._id)
     );
   }, [userData]);
-  console.log(pin);
-
+  // console.log(pin);
+  const closeAlert = () => {
+    // console.log("Alert closed!");
+    setShowAlert(false);
+  };
   return (
     <div className="m-2">
+      {showAlert && (
+        <Alert message="Pipe saved " duration={2000} closeAlert={closeAlert} />
+      )}
       <div
         onMouseEnter={() => setPostHovered(true)}
         onMouseLeave={() => setPostHovered(false)}
@@ -61,11 +67,12 @@ function Pin({ pin }) {
                 <button
                   onClick={e => {
                     e.stopPropagation();
+                    setShowAlert(true);
                   }}
                   type="button"
                   className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
                 >
-                  {savedBy?.length} Saved
+                  {savedPostLength} Saved
                 </button>
               ) : (
                 <button
@@ -73,13 +80,21 @@ function Pin({ pin }) {
                     e.stopPropagation();
                     if (!savedPost) {
                       setSavingPost(true);
-                      savePin(pin._id, userData._id, revalidate.revalidate);
+                      savePin(
+                        pin._id,
+                        userData._id,
+                        setsavedLength,
+                        setSavingPost,
+                        setsavedPost
+                      );
+
+                      // console.log(res);
                     }
                   }}
                   type="button"
                   className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
                 >
-                  {savedBy?.length} {savingPost ? "Saving" : "Save"}
+                  {savedPostLength} {savingPost ? "Saving" : "Save"}
                 </button>
               )}
             </div>

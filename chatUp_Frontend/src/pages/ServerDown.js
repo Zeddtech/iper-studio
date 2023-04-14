@@ -10,7 +10,7 @@ function ServerDown() {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
-          className="w-40 h-40 dark:text-gray-600"
+          className="w-40 h-40 text-red-500"
         >
           <path
             fill="currentColor"
@@ -32,15 +32,17 @@ function ServerDown() {
             points="383.958 182.63 360.042 161.37 338.671 185.412 314.63 164.042 293.37 187.958 317.412 209.329 296.042 233.37 319.958 254.63 341.329 230.588 365.37 251.958 386.63 228.042 362.588 206.671 383.958 182.63"
           ></polygon>
         </svg>
-        <p className="text-lg">
-          Opps!, something went wrong , let's go back to login , its probaly
-          nothing serious
+        <p className="text-gray-600 mb-8 font-black text-2xl">
+          Oops! Something went wrong.
+        </p>
+        <p className="text-gray-600 mb-8 text-lg">
+          Its's probably nothing serious let's try to Login again
         </p>
         <Link
           to={"/login"}
-          className="px-8 py-3 font-semibold rounded bg-cyan-400 dark:text-gray-900"
+          className="bg-cyan-400 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded"
         >
-          Back to Login
+          Go to Login
         </Link>
       </div>
     </section>

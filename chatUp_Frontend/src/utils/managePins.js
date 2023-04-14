@@ -2,7 +2,13 @@ import { Navigate, redirect } from "react-router-dom";
 import { client } from "../sanityConfig";
 import { v4 as uuidv4 } from "uuid";
 
-export function savePin(pinId, userId, revalidate) {
+export function savePin(
+  pinId,
+  userId,
+  setSavedLength,
+  setSavingPost,
+  setsavedPost
+) {
   console.log("save function called ");
 
   client
@@ -20,8 +26,10 @@ export function savePin(pinId, userId, revalidate) {
     ])
     .commit()
     .then(res => {
-      console.log(res);
-      revalidate();
+      setSavedLength(res.save.length);
+      setSavingPost(false);
+      setsavedPost(true);
+      //   revalidate();
       return res;
     })
     .catch(error => {
