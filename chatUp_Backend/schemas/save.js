@@ -7,8 +7,8 @@ export default defineType({
   icon,
   fields: [
     defineField({
-      name: 'postedBy',
-      title: 'PostedBy',
+      name: 'savedBy',
+      title: 'SavedBy',
       type: 'postedBy',
     }),
     defineField({

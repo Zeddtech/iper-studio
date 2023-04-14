@@ -10,9 +10,10 @@ import { CreatePin, Feed, PinDetail, Search } from "../components";
 import UserProfile from "../pages/UserProfile";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import userLoader from "../utils/routeLoader";
+import { userLoader, feedLoader } from "../utils/routeLoader";
 import NotFound from "../pages/NotFound";
 import ServerDown from "../pages/ServerDown";
+import { useGcontex } from "../hooks/ContextProvider";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<App />}>
@@ -23,8 +24,12 @@ const router = createBrowserRouter(
         errorElement={<ServerDown />}
       >
         <Route path="/*" element={<Pins />}>
-          <Route index element={<Feed />} />
-          <Route path="category/:categoryId" element={<Feed />} />
+          <Route index element={<Feed />} loader={feedLoader} />
+          <Route
+            path="category/:categoryId"
+            element={<Feed />}
+            loader={feedLoader}
+          />
           <Route path="pin-Detail/:PinId" element={<PinDetail />} />
           <Route path="createPin" element={<CreatePin />} />
           <Route path="search" element={<Search />} />

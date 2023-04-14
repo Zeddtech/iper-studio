@@ -3,4 +3,49 @@ export function userQuery(id) {
   return query;
 }
 
-// export default userQuery;
+export function searchQuery(searchTerm) {
+  const query = `*[_type=="pin" && title match "${searchTerm}*"|| category match "${searchTerm}*"||about match "${searchTerm}*"]{
+    _id,
+    "imageUrl":image.asset->url,
+    destination,
+    postedBy->{
+      _id,
+      image,
+       firstName,
+      lastName
+    },
+    "savedBy": save[]{
+    key,
+   savedBy->{
+      _id,
+      image,
+       firstName,
+      lastName
+    },
+    
+  },
+  }`;
+  return query;
+}
+
+export const allFeedQuery = `*[_type=='pin']|order(_createdAt desc){
+  _id,
+    "imageUrl":image.asset->url,
+    destination,
+    postedBy->{
+      _id,
+      image,
+      firstName,
+      lastName
+    },
+    "savedBy": save[]{
+    key,
+    savedBy->{
+      _id,
+      image,
+      firstName,
+      lastName,
+    },
+    
+  },
+}`;
