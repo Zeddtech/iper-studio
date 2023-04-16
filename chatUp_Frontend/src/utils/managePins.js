@@ -36,3 +36,16 @@ export function savePin(
       throw new Error("something went wrong couldn't fetch feed");
     });
 }
+export function deletePin(pinId, setIsDeleted) {
+  client
+    .delete(pinId)
+    .then(res => {
+      console.log("pipe deleted", res);
+      if (pinId == res.documentIds[0]) {
+        setIsDeleted(true);
+      }
+    })
+    .catch(err => {
+      console.error("Delete failed: ", err.message);
+    });
+}

@@ -4,14 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { ImFacebook, ImSkype, ImTwitter } from "react-icons/im";
 import piper from "../asset/piper.mp4";
-import logo from "../asset/logo.svg";
+import logo from "../asset/logo.png";
 import axios from "axios";
 import { client } from "../sanityConfig";
-import { useGcontex } from "../hooks/ContextProvider";
-import useLocalStorage from "../hooks/useLocalStorage";
+
 function Login() {
   const [userToken, setuserToken] = useState("");
-  const [user_id, setUser_id] = useLocalStorage("user_id", "");
+
   const navigate = useNavigate();
   useEffect(() => {
     if (userToken) {
@@ -22,7 +21,7 @@ function Login() {
             headers: {
               Authorization: `Bearer ${userToken}`,
               Accept: "application/json",
-              // SameSite: "Strict",
+              SameSite: "Strict",
             },
           }
         )
@@ -80,7 +79,7 @@ function Login() {
       </div>
       <div className="absolute flex flex-col justify-center items-center top-0 right-0 left-0 bottom-0 bg-blackOverlay">
         <div className="p-5">
-          <img src={logo} width="130px" alt="piper logo" />
+          <img src={logo} width="200px" alt="piper logo" />
         </div>
         <div className="social_logins shadow-2xl flex flex-col">
           <button className="social_btn google" onClick={login}>

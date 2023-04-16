@@ -1,6 +1,6 @@
 import React from "react";
 import { BiLoaderAlt } from "react-icons/bi";
-import logo from "../asset/logo.svg";
+import logo from "../asset/logo.png";
 function SpinnerOfDoom() {
   return (
     // <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-4 w-full">

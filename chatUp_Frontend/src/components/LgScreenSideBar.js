@@ -9,4 +9,4 @@ function LgScreenSideBar() {
   );
 }
 
-export default LgScreenSideBar;
+export default React.memo(LgScreenSideBar);

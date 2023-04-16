@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { HiMenu } from "react-icons/hi";
 import { Link } from "react-router-dom";
-import logo from "../asset/logo.svg";
+import logo from "../asset/logo.png";
 import { useGcontex } from "../hooks/ContextProvider";
 import Sidebar from "./Sidebar";
 function MobileSideBar() {
@@ -22,7 +22,7 @@ function MobileSideBar() {
             onClick={() => setToggleSidebar(true)}
           />
           <Link to="/">
-            <img src={logo} alt="logo" className="w-16" />
+            <img src={logo} alt="logo" className="w-28" />
           </Link>
           <Link to={`user-profile/${userData?._id}`}>
             <img
@@ -53,4 +53,4 @@ function MobileSideBar() {
   );
 }
 
-export default MobileSideBar;
+export default React.memo(MobileSideBar);

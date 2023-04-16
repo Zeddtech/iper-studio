@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
 import Masonry from "react-masonry-css";
 import Pin from "./Pin";
-import { useGcontex } from "../hooks/ContextProvider";
 
 const breakpointColumnsObj = {
   default: 4,

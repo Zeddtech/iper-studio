@@ -5,15 +5,16 @@ import { AiTwotoneDelete } from "react-icons/ai";
 import { BsFillArrowUpRightCircleFill } from "react-icons/bs";
 import { urlFor } from "../sanityConfig";
 import { useGcontex } from "../hooks/ContextProvider";
-import { savePin } from "../utils/managePins";
+import { deletePin, savePin } from "../utils/managePins";
 import Alert from "./Alert";
 function Pin({ pin }) {
-  const { imageUrl, postedBy, destination, savedBy } = pin;
+  const { imageUrl, postedBy, destination, savedBy, _id } = pin;
   const [postHovered, setPostHovered] = useState(false);
   const [savingPost, setSavingPost] = useState(false);
   const [savedPost, setsavedPost] = useState(false);
   const [savedPostLength, setsavedLength] = useState(savedBy?.length);
   const [showAlert, setShowAlert] = useState(false);
+  const [isDeleted, setisDeleted] = useState(false);
   const { userData } = useGcontex();
   const navigate = useNavigate();
   // since the global context doesnt load early so evaluating the userdata triggers an error...
@@ -27,6 +28,9 @@ function Pin({ pin }) {
     // console.log("Alert closed!");
     setShowAlert(false);
   };
+  if (isDeleted) {
+    return null;
+  }
   return (
     <div className="m-2">
       {showAlert && (
@@ -36,7 +40,7 @@ function Pin({ pin }) {
         onMouseEnter={() => setPostHovered(true)}
         onMouseLeave={() => setPostHovered(false)}
         onClick={() => navigate(`/pin-detail/${pin._id}`)}
-        className=" relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out"
+        className=" relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out bg-blackOverlay"
       >
         {imageUrl && (
           <img
@@ -115,7 +119,13 @@ function Pin({ pin }) {
                   type="button"
                   onClick={e => {
                     e.stopPropagation();
-                    // deletePin(_id);
+                    if (
+                      window.confirm(
+                        "do you want to delete pipe, pipes deleted cant be recovered"
+                      )
+                    ) {
+                      deletePin(_id, setisDeleted);
+                    }
                   }}
                   className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
                 >
@@ -134,6 +144,7 @@ function Pin({ pin }) {
           className="w-8 h-8 rounded-full object-cover"
           src={postedBy?.image}
           alt="user-profile"
+          referrerPolicy="no-referrer"
         />
         <p className="font-semibold capitalize">
           {postedBy?.firstName + " " + postedBy?.lastName}
@@ -144,3 +155,4 @@ function Pin({ pin }) {
 }
 
 export default Pin;
+// 91b68173-a634-4b00-a1bc-a70c963b7825

@@ -1,5 +1,5 @@
 import bg from "../asset/insta-2.jpg";
-import logo from "../asset/logo.svg";
+import logo from "../asset/logo.png";
 import { useRef, useState, useEffect } from "react";
 import { useGcontex } from "../hooks/ContextProvider";
 import { Link, useNavigate, useLocation } from "react-router-dom";
