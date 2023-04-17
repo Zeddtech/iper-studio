@@ -1,6 +1,6 @@
 import { redirect } from "react-router-dom";
 import { client } from "../sanityConfig";
-import { allFeedQuery, searchQuery, userQuery } from "./data";
+import { allFeedQuery, searchQuery, userQuery } from "./GROQqueries";
 
 export async function userLoader() {
   const user_id = localStorage.getItem("user_id");

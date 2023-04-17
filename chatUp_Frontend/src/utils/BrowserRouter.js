@@ -22,7 +22,7 @@ const router = createBrowserRouter(
         loader={userLoader}
         errorElement={<ServerDown />}
       >
-        <Route path="/*" element={<Pins />}>
+        <Route element={<Pins />}>
           <Route index element={<Feed />} loader={feedLoader} />
           <Route
             path="category/:categoryId"
@@ -30,7 +30,7 @@ const router = createBrowserRouter(
             loader={feedLoader}
           />
           <Route path="pin-Detail/:PinId" element={<PinDetail />} />
-          <Route path="createPin" element={<CreatePin />} />
+          <Route path="create-pin" element={<CreatePin />} />
           <Route path="search" element={<Search />} />
         </Route>
         <Route path="user-profile/:userid" element={<UserProfile />} />

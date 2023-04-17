@@ -6,7 +6,9 @@ function Alert({ message, duration, closeAlert }) {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setShowAlert(false);
-      closeAlert();
+      if (closeAlert) {
+        closeAlert();
+      }
     }, duration);
 
     return () => {
@@ -22,7 +24,7 @@ function Alert({ message, duration, closeAlert }) {
   return (
     <>
       {showAlert && (
-        <div className="absolute flex -top-20 right-0 left-0 item-center justify-center z-[9999] overflow-hidden">
+        <div className="absolute flex -top-20 right-0 left-0 item-center justify-center z-[9999] overflow-hidden animate-slide-in">
           <div className="bg-cyan-300  rounded text-white px-4 py-3 shadow-md ">
             <div className="flex items-center ">
               <span className="font-bold">{message}</span>
