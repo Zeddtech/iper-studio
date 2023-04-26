@@ -1,5 +1,5 @@
 import React from "react";
-import { BiLoaderAlt } from "react-icons/bi";
+
 import logo from "../asset/logo.png";
 function SpinnerOfDoom() {
   return (
@@ -127,7 +127,7 @@ function SpinnerOfDoom() {
       <img
         src={logo}
         alt=""
-        className="text-blue-900 filter mix-blend-overlay h-24 w-24"
+        className="text-blue-900 filter mix-blend-overlay w-32"
       />
     </section>
   );

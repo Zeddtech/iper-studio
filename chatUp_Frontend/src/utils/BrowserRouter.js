@@ -13,6 +13,7 @@ import Register from "../pages/Register";
 import { userLoader, feedLoader } from "../utils/routeLoader";
 import NotFound from "../pages/NotFound";
 import ServerDown from "../pages/ServerDown";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<App />}>

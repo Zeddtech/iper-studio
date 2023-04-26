@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import PropTypes from "prop-types";
 function Alert({ message, duration, closeAlert }) {
   const [showAlert, setShowAlert] = useState(true);
 
@@ -16,10 +16,10 @@ function Alert({ message, duration, closeAlert }) {
     };
   }, [duration, closeAlert]);
 
-  const handleClose = () => {
-    setShowAlert(false);
-    closeAlert();
-  };
+  // const handleClose = () => {
+  //   setShowAlert(false);
+  //   closeAlert();
+  // };
 
   return (
     <>
@@ -35,5 +35,10 @@ function Alert({ message, duration, closeAlert }) {
     </>
   );
 }
+Alert.propTypes = {
+  message: PropTypes.string,
+  duration: PropTypes.number,
+  closeAlert: PropTypes.func,
+};
 
 export default Alert;
