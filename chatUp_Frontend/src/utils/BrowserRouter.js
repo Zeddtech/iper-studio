@@ -6,11 +6,12 @@ import {
 import App from "../App";
 import Home from "../pages/Home";
 import Pins from "../pages/Pins";
-import { CreatePin, Feed, PinDetail, Search } from "../components";
+import PinDetail from "../pages/PinDetail";
+import { CreatePin, Feed, Search } from "../components";
 import UserProfile from "../pages/UserProfile";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import { userLoader, feedLoader } from "../utils/routeLoader";
+import { userLoader, feedLoader, pinDetailLoader } from "../utils/routeLoader";
 import NotFound from "../pages/NotFound";
 import ServerDown from "../pages/ServerDown";
 
@@ -21,16 +22,24 @@ const router = createBrowserRouter(
         path="/"
         element={<Home />}
         loader={userLoader}
+        id="root"
         errorElement={<ServerDown />}
       >
         <Route element={<Pins />}>
-          <Route index element={<Feed />} loader={feedLoader} />
+          <Route index element={<Feed />} loader={feedLoader} id="feed" />
           <Route
             path="category/:categoryId"
             element={<Feed />}
             loader={feedLoader}
+            id="category"
           />
-          <Route path="pin-Detail/:PinId" element={<PinDetail />} />
+          <Route
+            path="pin-Detail/:PinId"
+            loader={pinDetailLoader}
+            element={<PinDetail />}
+            errorElement={<NotFound />}
+            id="pindetail"
+          />
           <Route path="create-pin" element={<CreatePin />} />
           <Route path="search" element={<Search />} />
         </Route>

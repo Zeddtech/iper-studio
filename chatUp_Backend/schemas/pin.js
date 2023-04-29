@@ -51,8 +51,8 @@ export default defineType({
       of: [{type: 'save'}],
     }),
     defineField({
-      name: 'comment',
-      title: 'Comment',
+      name: 'comments',
+      title: 'Comments',
       type: 'array',
       of: [{type: 'comment'}],
     }),

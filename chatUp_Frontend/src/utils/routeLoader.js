@@ -1,6 +1,12 @@
-import { redirect } from "react-router-dom";
+import { defer, redirect } from "react-router-dom";
 import { client } from "../sanityConfig";
-import { allFeedQuery, searchQuery, userQuery } from "./GROQqueries";
+import {
+  allFeedQuery,
+  pinDetailQuery,
+  searchQuery,
+  similarPinCategoryQuery,
+  userQuery,
+} from "./GROQqueries";
 
 export async function userLoader() {
   const user_id = localStorage.getItem("user_id");
@@ -32,6 +38,19 @@ export async function feedLoader({ params }) {
 
       return res;
     }
+  } catch (error) {
+    throw new Error("something went wrong, " + error.message);
+  }
+}
+export async function pinDetailLoader({ params }) {
+  console.log("pindetail ran");
+  try {
+    const pinDetail = await client.fetch(pinDetailQuery(params.PinId));
+    const similarPins = client.fetch(
+      similarPinCategoryQuery(pinDetail._id, pinDetail.category)
+    );
+    console.log(pinDetail);
+    return defer({ pinDetail, similarPins });
   } catch (error) {
     throw new Error("something went wrong, " + error.message);
   }

@@ -35,9 +35,7 @@ function ServerDown() {
         <p className="text-gray-600 mb-8 font-black text-2xl">
           Oops! Something went wrong.
         </p>
-        <p className="text-gray-600 mb-8 text-lg">
-          Its's probably nothing serious let's try to Login again
-        </p>
+        <p className="text-gray-600 mb-8 text-lg">{JSON.stringify(error)}</p>
         <Link
           to={"/login"}
           className="bg-cyan-400 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded"

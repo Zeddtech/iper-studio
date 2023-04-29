@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Navigate, redirect } from "react-router-dom";
 import { client } from "../sanityConfig";
 import { v4 as uuidv4 } from "uuid";

@@ -117,3 +117,76 @@ export const allFeedQuery = `*[_type=='pin']|order(_createdAt desc){
     
   },
 }`;
+
+export const pinDetailQuery = pinId => {
+  const query = `*[
+  _type == "pin" &&
+  _id == '${pinId}'
+][0]{
+  about,
+  category,
+  destination,
+  title,
+  userid,
+  _id,
+  _createdAt,
+  "imageUrl": image.asset->url,
+  postedBy->{
+    _id,
+    image,
+    firstName,
+    lastName
+  },
+  "savedBy": save[]{
+    _key,
+    savedBy->{
+      _id,
+      image,
+      firstName,
+      lastName
+    }
+  },
+  comments[]{
+    _key,
+    comment,
+    postedBy->{
+      _id,
+      image,
+      firstName,
+      lastName
+    }
+  }
+}
+`;
+  return query;
+};
+export const similarPinCategoryQuery = (pinId, pinCategory) => {
+  const query = `*[
+  _type == 'pin' &&
+  _id != '${pinId}' &&
+  category == '${pinCategory}'
+]{
+   _id,
+    "imageUrl":image.asset->url,
+    destination,
+    postedBy->{
+      _id,
+      image,
+      firstName,
+      lastName
+    },
+    "savedBy": save[]{
+    _id,
+    savedBy->{
+      _id,
+      image,
+      firstName,
+      lastName,
+    },
+    
+  },
+}`;
+  return query;
+};
+// _id == "ca870f7f-acb1-4014-8325-2ffa499ab956";
+// "104727233770123461088";
