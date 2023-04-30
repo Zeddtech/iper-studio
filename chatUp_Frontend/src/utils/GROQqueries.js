@@ -74,7 +74,7 @@ export function userQuery(id) {
 export function searchQuery(searchTerm) {
   const query = `*[_type=="pin" && title match "${searchTerm}*"|| category match "${searchTerm}*"||about match "${searchTerm}*"]{
     _id,
-    "imageUrl":image.asset->url,
+    image,
     destination,
     postedBy->{
       _id,
@@ -98,7 +98,7 @@ export function searchQuery(searchTerm) {
 
 export const allFeedQuery = `*[_type=='pin']|order(_createdAt desc){
   _id,
-    "imageUrl":image.asset->url,
+    image,
     destination,
     postedBy->{
       _id,
@@ -130,7 +130,7 @@ export const pinDetailQuery = pinId => {
   userid,
   _id,
   _createdAt,
-  "imageUrl": image.asset->url,
+  image,
   postedBy->{
     _id,
     image,
@@ -149,6 +149,7 @@ export const pinDetailQuery = pinId => {
   comments[]{
     _key,
     comment,
+    date,
     postedBy->{
       _id,
       image,
@@ -167,7 +168,7 @@ export const similarPinCategoryQuery = (pinId, pinCategory) => {
   category == '${pinCategory}'
 ]{
    _id,
-    "imageUrl":image.asset->url,
+    image,
     destination,
     postedBy->{
       _id,

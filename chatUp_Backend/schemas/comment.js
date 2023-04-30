@@ -16,5 +16,14 @@ export default defineType({
       title: 'Comment',
       type: 'string',
     }),
+    defineField({
+      name: 'date',
+      title: 'Date',
+      type: 'datetime',
+      initialValue: new Date().toISOString(),
+      options: {
+        dateFormat: 'MMM DD, YYYY .',
+      },
+    }),
   ],
 })

@@ -50,3 +50,23 @@ export function deletePin(pinId, setIsDeleted) {
       console.error("Delete failed: ", err.message);
     });
 }
+export async function saveComment(userId, pinId, comment) {
+  const res = await client
+    .patch(pinId)
+    .setIfMissing({ comments: [] })
+    .prepend("comments", [
+      {
+        _key: uuidv4(),
+        comment,
+        date: new Date().toISOString(),
+        postedBy: {
+          _type: "postedBy",
+          _ref: userId,
+        },
+      },
+    ])
+    .commit();
+
+  console.log(res);
+  return res;
+}

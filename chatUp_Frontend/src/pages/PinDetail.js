@@ -1,23 +1,20 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useState } from "react";
 import { MdDownloadForOffline } from "react-icons/md";
 import {
   Await,
   Link,
   useLoaderData,
-  useRevalidator,
   useRouteLoaderData,
 } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 
 import { urlFor } from "../sanityConfig";
 
 import Spinner from "../components/Spinner";
 import MasonryLayout from "../components/MansoryLayout";
-import { savePin } from "../utils/managePins";
+import { saveComment, savePin } from "../utils/managePins";
 import { AiOutlineLink } from "react-icons/ai";
 
 function PinDetail() {
-  // eslint-disable-next-line no-unused-vars
   const { pinDetail, similarPins } = useLoaderData();
   const user = useRouteLoaderData("root");
   const [hasSavedPost, sethasSavedPost] = useState(() =>
@@ -26,23 +23,32 @@ function PinDetail() {
   const [savingPost, setSavingPost] = useState(false);
   const [savedCount, setSavedCount] = useState(pinDetail?.savedBy?.length);
   const [comment, setComment] = useState("");
-  // eslint-disable-next-line no-unused-vars
   const [addingComment, setAddingComment] = useState(false);
-  const revalidator = useRevalidator();
-  if (revalidator.state == "loading") {
-    return (
-      <Spinner message={"Adding new fun Pipes to your feed, dont leave!! "} />
-    );
-  }
-  useEffect(() => {}, [pinDetail]);
+  const [allComments, setAllComments] = useState(pinDetail?.comments);
   function addComment() {
     if (!addingComment) {
       setAddingComment(true);
+      saveComment(user._id, pinDetail._id, comment).then(() => {
+        setAllComments(prev => [
+          {
+            _key: comment,
+            comment,
+            date: new Date().toISOString(),
+            postedBy: {
+              firstName: user.firstName,
+              lastName: user.lastName,
+              _id: user._id,
+              image: user.image,
+            },
+          },
+          ...prev,
+        ]);
+        setAddingComment(false);
+        setComment("");
+      });
     }
   }
-  console.log(pinDetail);
-  const date = new Date("2023-04-15T18:05:57Z");
-  console.log(similarPins);
+  const date = new Date(pinDetail._createdAt);
   return (
     <div className="lg:flex lg:flex-row lg:gap-3">
       {pinDetail && (
@@ -78,14 +84,17 @@ function PinDetail() {
             <div className="flex justify-center items-center md:items-start flex-initial rounded-t-3xl rounded-b-lg ">
               <img
                 className="rounded-t-3xl rounded-b-lg"
-                src={pinDetail?.imageUrl && urlFor(pinDetail?.imageUrl)}
+                src={pinDetail?.image && urlFor(pinDetail?.image).url()}
                 alt="pipe"
               />
             </div>
             <div className="w-full flex align-center text-slate-500 py-5 text-sm text-[15px]">
-              {date.toLocaleTimeString()} . {date.toDateString()} ·{" "}
+              {date.toLocaleTimeString()}
+              <span className="font-bold px-1"> · </span>
+              {date.toDateString()}
+              <span className="font-bold px-1"> · </span>
               <span className="ms-2 font-black">
-                {savedCount || 0}{" "}
+                {savedCount || 0}
                 {savedCount ? (savedCount > 1 ? "Saves" : "Save") : "Save"}
               </span>
             </div>
@@ -93,7 +102,7 @@ function PinDetail() {
               <div className="grid grid-cols-3 py-3 border-y-2 border-slate-200 justify-items-center	items-center">
                 <div className="flex  items-center">
                   <a
-                    href={`${pinDetail.imageUrl}?dl=`}
+                    href={`${urlFor(pinDetail.image).url()}?dl=`}
                     download
                     className="bg-secondaryColor p-2 text-2xl rounded-full flex items-center justify-center text-dark opacity-75 hover:opacity-100 hover:text-cyan-400 transition"
                     title="download pipe"
@@ -147,7 +156,10 @@ function PinDetail() {
                 </a>
               </div>
             </div>
-            <div className="grid grid-cols-6  sm:flex sm:flex-row py-3 gap-2">
+            <div
+              className=" max-[370px]:grid
+               max-[370px]:grid-cols-6 flex flex-row py-3 gap-2"
+            >
               <Link to={`/user-profile/${user._id}`}>
                 <img
                   src={user.image}
@@ -157,7 +169,7 @@ function PinDetail() {
                 />
               </Link>
               <input
-                className=" col-span-3 flex-1 outline-none border-0 p-2 tracking-wide	 "
+                className=" col-span-3 flex-1 outline-none border-0  tracking-wide	 "
                 type="text"
                 placeholder="Add a comment"
                 value={comment}
@@ -165,32 +177,51 @@ function PinDetail() {
               />
               <button
                 type="button"
-                className="bg-cyan-400 text-white rounded-full sm:px-4 sm:py-2 font-semibold text-base outline-none text-sm hover:bg-cyan-500 transition col-span-2"
+                className="bg-cyan-400 text-white rounded-full px-2 py-1 font-semibold outline-none hover:bg-cyan-500 transition col-span-2 text-[13px]"
                 onClick={addComment}
                 disabled={!comment}
               >
-                {addingComment ? "commenting..." : "Comment"}
+                {addingComment ? "adding comment..." : "Comment"}
               </button>
             </div>
           </div>
           <div className="border-t-2 border-slate-200">
-            {pinDetail?.comments ? (
-              pinDetail?.comments?.map(item => (
+            {allComments ? (
+              allComments?.map(item => (
                 <div
                   className="flex gap-3 p-5  bg-white  hover:bg-[rgba(0,0,0,0.03)]
                   transition-colors	border-b border-slate-200"
                   key={item._key}
                 >
-                  <img
-                    src={item.postedBy?.image}
-                    className="w-10 h-10 rounded-full cursor-pointer"
-                    alt="user-profile"
-                    referrerPolicy="no-referrer"
-                  />
+                  <Link to={`/user-profile/${item.postedBy?._id}`}>
+                    <img
+                      src={item.postedBy?.image}
+                      className="w-10 h-10 rounded-full cursor-pointer"
+                      alt="user-profile"
+                      referrerPolicy="no-referrer"
+                    />
+                  </Link>
                   <div className="flex flex-col">
                     <p className="font-bold text-sm">
-                      {item?.postedBy.firstName + " " + item?.postedBy.lastName}
-                      <span className="ms-2"></span>
+                      <Link
+                        to={`/user-profile/${item.postedBy?._id}`}
+                        className="hover:underline"
+                      >
+                        {item?.postedBy?.firstName +
+                          " " +
+                          item?.postedBy?.lastName}
+                      </Link>
+
+                      <span
+                        className="ms-3 text-slate-500 font-light text-sm"
+                        title={
+                          item.date && new Date(item.date).toLocaleString()
+                        }
+                      >
+                        <span className="text-slate-500 font-bold pe-1">·</span>
+                        {item.date &&
+                          new Date(item.date).toDateString().substring(4, 10)}
+                      </span>
                     </p>
                     <p className="text-sm text-slate-500 py-1 text-[15px]">
                       {item.comment}
@@ -210,11 +241,15 @@ function PinDetail() {
       <Suspense fallback={<Spinner message={"loading similar pipes"} />}>
         <Await
           resolve={similarPins}
-          errorElement={<div>Could not load similar pipes 😬</div>}
+          errorElement={
+            <div className="p-5 pb-20 text-center text-slate-600 font-semibold">
+              Could not load similar pipes 😬
+            </div>
+          }
         >
           {resolvedSimilarPins => (
             <div className="bg-white px-3 xl:px-4">
-              <h2 className="text-center font-bold text-xl mt-8 mb-4">
+              <h2 className="text-center font-bold text-xl pt-8 pb-4">
                 More like this
               </h2>
               <MasonryLayout

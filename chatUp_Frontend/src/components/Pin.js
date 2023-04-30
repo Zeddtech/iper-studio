@@ -1,29 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate, useRouteLoaderData } from "react-router-dom";
 import { MdOutlineDownloadForOffline } from "react-icons/md";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { BsFillArrowUpRightCircleFill } from "react-icons/bs";
 import { urlFor } from "../sanityConfig";
-import { useGcontex } from "../hooks/ContextProvider";
+
 import { deletePin, savePin } from "../utils/managePins";
 import Alert from "./Alert";
 function Pin({ pin }) {
-  const { imageUrl, postedBy, destination, savedBy, _id } = pin;
+  const { image, postedBy, destination, savedBy, _id } = pin;
+  const userData = useRouteLoaderData("root");
   const [postHovered, setPostHovered] = useState(false);
   const [savingPost, setSavingPost] = useState(false);
-  const [savedPost, setsavedPost] = useState(false);
+  const [savedPost, setsavedPost] = useState(
+    pin?.savedBy?.map(item => item?.savedBy?._id)?.includes(userData?._id)
+  );
   const [savedPostLength, setsavedLength] = useState(savedBy?.length);
   const [showAlert, setShowAlert] = useState(false);
   const [isDeleted, setisDeleted] = useState(false);
-  const { userData } = useGcontex();
+
   const navigate = useNavigate();
-  // since the global context doesnt load early so evaluating the userdata triggers an error...
-  useEffect(() => {
-    setsavedPost(
-      pin?.savedBy?.map(item => item?.savedBy?._id)?.includes(userData?._id)
-    );
-  }, [userData]);
-  // console.log(pin);
+
+  console.log(pin);
   const closeAlert = () => {
     // console.log("Alert closed!");
     setShowAlert(false);
@@ -42,10 +40,10 @@ function Pin({ pin }) {
         onClick={() => navigate(`/pin-detail/${pin._id}`)}
         className=" relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out bg-blackOverlay"
       >
-        {imageUrl && (
+        {image && (
           <img
             className="rounded-lg w-full "
-            src={urlFor(imageUrl).width(250).url()}
+            src={urlFor(image).width(250).url()}
             alt="user-post"
             referrerPolicy="no-referrer"
           />
@@ -58,7 +56,7 @@ function Pin({ pin }) {
             <div className="flex items-center justify-between">
               <div className="flex gap-2">
                 <a
-                  href={`${imageUrl}?dl=`}
+                  href={`${image}?dl=`}
                   download
                   onClick={e => {
                     e.stopPropagation();

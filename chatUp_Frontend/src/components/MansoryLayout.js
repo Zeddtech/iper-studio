@@ -13,8 +13,8 @@ const breakpointColumnsObj = {
 const MasonryLayout = ({ pins, bp }) => {
   return (
     <Masonry className="flex " breakpointCols={bp || breakpointColumnsObj}>
-      {pins?.map(pin => (
-        <Pin key={pin._id} pin={pin} className="w-max" />
+      {pins?.map((pin, i) => (
+        <Pin key={pin._id} pin={pin} i={i} className="w-max" />
       ))}
     </Masonry>
   );
