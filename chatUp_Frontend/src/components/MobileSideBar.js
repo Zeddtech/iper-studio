@@ -29,6 +29,7 @@ function MobileSideBar() {
               src={userData?.image}
               alt="user-pic"
               className="w-9 h-9 rounded-full "
+              referrerPolicy="no-referrer"
             />
           </Link>
         </div>

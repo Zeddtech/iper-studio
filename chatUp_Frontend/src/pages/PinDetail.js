@@ -44,42 +44,45 @@ function PinDetail() {
   const date = new Date("2023-04-15T18:05:57Z");
   console.log(similarPins);
   return (
-    <div className="">
+    <div className="lg:flex lg:flex-row lg:gap-3">
       {pinDetail && (
         <div
-          className="flex  flex-col m-auto bg-white "
-          style={{ maxWidth: "600px" }}
+          className="flex flex-col m-auto lg:m-0 bg-white "
+          style={{ maxWidth: "600px", minWidth: "300px" }}
         >
-          <div className="p-5 flex flex-col pb-0">
+          <div className="px-4 flex flex-col pb-0">
             <Link
               to={`/user-profile/${pinDetail?.postedBy._id}`}
               className="flex gap-3 mt-5 items-center bg-white rounded-lg "
             >
               <img
                 src={pinDetail?.postedBy.image}
-                className="w-10 h-10 rounded-full "
+                className="w-12 h-12 rounded-full "
                 alt="user-profile"
+                referrerPolicy="no-referrer"
               />
-              <p className="font-bold hover:text-cyan-400">
+              <p className="font-bold hover:text-cyan-400 text-[15px]">
                 {pinDetail?.postedBy.firstName +
                   " " +
                   pinDetail?.postedBy.lastName}
               </p>
             </Link>
             <div>
-              <h1 className=" font-bold break-words mt-5 capitalize text-center">
+              <h1 className=" font-bold break-words mt-5 capitalize text-center text-[17px]">
                 {pinDetail.title}
               </h1>
-              <p className="my-3 text-slate-600">{pinDetail.about}</p>
+              <p className="my-3 text-slate-600 text-[17px] ">
+                {pinDetail.about}
+              </p>
             </div>
-            <div className="flex justify-center items-center md:items-start flex-initial rounded-t-3xl rounded-b-lg">
+            <div className="flex justify-center items-center md:items-start flex-initial rounded-t-3xl rounded-b-lg ">
               <img
                 className="rounded-t-3xl rounded-b-lg"
                 src={pinDetail?.imageUrl && urlFor(pinDetail?.imageUrl)}
                 alt="pipe"
               />
             </div>
-            <div className="w-full flex align-center text-slate-500 py-5 text-sm ">
+            <div className="w-full flex align-center text-slate-500 py-5 text-sm text-[15px]">
               {date.toLocaleTimeString()} . {date.toDateString()} ·{" "}
               <span className="ms-2 font-black">
                 {savedCount || 0}{" "}
@@ -144,16 +147,17 @@ function PinDetail() {
                 </a>
               </div>
             </div>
-            <div className="flex  py-3 gap-3">
+            <div className="grid grid-cols-6  sm:flex sm:flex-row py-3 gap-2">
               <Link to={`/user-profile/${user._id}`}>
                 <img
                   src={user.image}
-                  className="w-10 h-10 rounded-full cursor-pointer"
+                  className="w-8 h-8 rounded-full cursor-pointer col-span-1"
                   alt="user-profile"
+                  referrerPolicy="no-referrer"
                 />
               </Link>
               <input
-                className=" flex-1  outline-none border-0 p-2 tracking-wide	 "
+                className=" col-span-3 flex-1 outline-none border-0 p-2 tracking-wide	 "
                 type="text"
                 placeholder="Add a comment"
                 value={comment}
@@ -161,7 +165,7 @@ function PinDetail() {
               />
               <button
                 type="button"
-                className="bg-cyan-400 text-white rounded-full px-4 py-2 font-semibold text-base outline-none text-sm hover:bg-cyan-500 transition"
+                className="bg-cyan-400 text-white rounded-full sm:px-4 sm:py-2 font-semibold text-base outline-none text-sm hover:bg-cyan-500 transition col-span-2"
                 onClick={addComment}
                 disabled={!comment}
               >
@@ -181,13 +185,14 @@ function PinDetail() {
                     src={item.postedBy?.image}
                     className="w-10 h-10 rounded-full cursor-pointer"
                     alt="user-profile"
+                    referrerPolicy="no-referrer"
                   />
                   <div className="flex flex-col">
                     <p className="font-bold text-sm">
                       {item?.postedBy.firstName + " " + item?.postedBy.lastName}
                       <span className="ms-2"></span>
                     </p>
-                    <p className="text-sm text-slate-500 py-1">
+                    <p className="text-sm text-slate-500 py-1 text-[15px]">
                       {item.comment}
                     </p>
                   </div>
@@ -208,12 +213,22 @@ function PinDetail() {
           errorElement={<div>Could not load similar pipes 😬</div>}
         >
           {resolvedSimilarPins => (
-            <>
-              <h2 className="text-center font-bold text-2xl mt-8 mb-4">
+            <div className="bg-white px-3 xl:px-4">
+              <h2 className="text-center font-bold text-xl mt-8 mb-4">
                 More like this
               </h2>
-              <MasonryLayout pins={resolvedSimilarPins} />
-            </>
+              <MasonryLayout
+                pins={resolvedSimilarPins}
+                bp={{
+                  default: 4,
+                  3000: 1,
+                  1024: 1,
+                  1023: 3,
+                  1000: 2,
+                  500: 1,
+                }}
+              />
+            </div>
           )}
         </Await>
       </Suspense>

@@ -25,6 +25,7 @@ function Navbar({ searchTerm, setSearchTerm }) {
             src={userData?.image}
             alt="user-pic"
             className="w-12 h-12 rounded-lg "
+            referrerPolicy="no-referrer"
           />
         </Link>
         <Link

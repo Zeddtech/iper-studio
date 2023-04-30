@@ -16,7 +16,10 @@ function Home() {
     <div className="flex bg-gray-50 md:flex-row flex-col h-screen transition-height duration-75 ease-out relative">
       <LgScreenSideBar />
       <MobileSideBar />
-      <div className="pb-2 flex-1 h-screen overflow-y-scroll" ref={scrollRef}>
+      <div
+        className="pb-2 flex-1 h-screen overflow-y-scroll max-w-5xl	m-auto"
+        ref={scrollRef}
+      >
         <Outlet />
       </div>
     </div>

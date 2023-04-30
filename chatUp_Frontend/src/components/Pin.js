@@ -47,6 +47,7 @@ function Pin({ pin }) {
             className="rounded-lg w-full "
             src={urlFor(imageUrl).width(250).url()}
             alt="user-post"
+            referrerPolicy="no-referrer"
           />
         )}
         {postHovered && (

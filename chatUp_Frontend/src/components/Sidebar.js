@@ -70,6 +70,7 @@ function Sidebar({ closeToggle }) {
             src={userData.image}
             className="w-10 h-10 rounded-full"
             alt="user-profile"
+            referrerPolicy="no-referrer"
           />
           <p>{userData.firstName}</p>
           <IoIosArrowForward />
