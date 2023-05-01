@@ -24,7 +24,7 @@ function PinDetail() {
   const [savedCount, setSavedCount] = useState(pinDetail?.savedBy?.length);
   const [comment, setComment] = useState("");
   const [addingComment, setAddingComment] = useState(false);
-  const [allComments, setAllComments] = useState(pinDetail?.comments);
+  const [allComments, setAllComments] = useState(pinDetail?.comments || []);
   function addComment() {
     if (!addingComment) {
       setAddingComment(true);
@@ -186,7 +186,7 @@ function PinDetail() {
             </div>
           </div>
           <div className="border-t-2 border-slate-200">
-            {allComments ? (
+            {allComments?.length>0 ? (
               allComments?.map(item => (
                 <div
                   className="flex gap-3 p-5  bg-white  hover:bg-[rgba(0,0,0,0.03)]

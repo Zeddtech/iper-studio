@@ -18,6 +18,7 @@ export async function userLoader() {
     try {
       const userquery = userQuery(user_id);
       const res = await client.fetch(userquery);
+      console.log(res);
       if (res.length < 1) {
         throw new Error("sever not responding");
       }
@@ -37,11 +38,11 @@ export async function feedLoader({ params }) {
       return res;
     } else {
       const res = await client.fetch(allFeedQuery);
-
+console.log(res);
       return res;
     }
   } catch (error) {
-    throw new Error("something went wrong, " + error.message);
+    throw new Error("something went wrong, " + error);
   }
 }
 export async function pinDetailLoader({ params }) {
