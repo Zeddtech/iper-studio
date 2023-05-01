@@ -11,7 +11,12 @@ import { CreatePin, Feed, Search } from "../components";
 import UserProfile from "../pages/UserProfile";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import { userLoader, feedLoader, pinDetailLoader } from "../utils/routeLoader";
+import {
+  userLoader,
+  feedLoader,
+  pinDetailLoader,
+  userProfileLoader,
+} from "../utils/routeLoader";
 import NotFound from "../pages/NotFound";
 import ServerDown from "../pages/ServerDown";
 
@@ -37,13 +42,17 @@ const router = createBrowserRouter(
             path="pin-Detail/:PinId"
             loader={pinDetailLoader}
             element={<PinDetail />}
-            errorElement={<NotFound />}
+            errorElement={<ServerDown />}
             id="pindetail"
           />
           <Route path="create-pin" element={<CreatePin />} />
           <Route path="search" element={<Search />} />
         </Route>
-        <Route path="user-profile/:userid" element={<UserProfile />} />
+        <Route
+          path="user-profile/:userid"
+          element={<UserProfile />}
+          loader={userProfileLoader}
+        />
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />

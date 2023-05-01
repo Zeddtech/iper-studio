@@ -5,7 +5,9 @@ import {
   pinDetailQuery,
   searchQuery,
   similarPinCategoryQuery,
+  userCreatedPinsQuery,
   userQuery,
+  userSavedPinsQuery,
 } from "./GROQqueries";
 
 export async function userLoader() {
@@ -51,6 +53,18 @@ export async function pinDetailLoader({ params }) {
     );
     console.log(pinDetail);
     return defer({ pinDetail, similarPins });
+  } catch (error) {
+    throw new Error("something went wrong, " + error.message);
+  }
+}
+export async function userProfileLoader({ params }) {
+  console.log("pindetail ran");
+  try {
+    const user = await client.fetch(userQuery(params.userid));
+    const userCreatedPins = client.fetch(userCreatedPinsQuery(params.userid));
+    const userSavedPins = client.fetch(userSavedPinsQuery(params.userid));
+
+    return defer({ user, userCreatedPins, userSavedPins });
   } catch (error) {
     throw new Error("something went wrong, " + error.message);
   }

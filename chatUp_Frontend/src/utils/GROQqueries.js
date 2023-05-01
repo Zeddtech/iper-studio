@@ -189,5 +189,49 @@ export const similarPinCategoryQuery = (pinId, pinCategory) => {
 }`;
   return query;
 };
+
+export const userCreatedPinsQuery = userId => {
+  const query = `*[ _type == 'pin' && userId == '${userId}'] | order(_createdAt desc){
+    image,
+    _id,
+    destination,
+    postedBy->{
+      _id,
+      userName,
+      image
+    },
+    "savedBy": save[]{
+    _id,
+    savedBy->{
+      _id,
+      image,
+      firstName,
+      lastName,
+    },
+  }`;
+  return query;
+};
+export const userSavedPinsQuery = userId => {
+  const query = `*[_type == 'pin' && '${userId}' in save[].userId ] | order(_createdAt desc) {
+    image{
+    image,
+    _id,
+    destination,
+    postedBy->{
+      _id,
+      userName,
+      image
+    },
+    "savedBy": save[]{
+    _id,
+    savedBy->{
+      _id,
+      image,
+      firstName,
+      lastName,
+    },
+  }`;
+  return query;
+};
 // _id == "ca870f7f-acb1-4014-8325-2ffa499ab956";
 // "104727233770123461088";
