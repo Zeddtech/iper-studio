@@ -12,6 +12,8 @@ function Login() {
   const [userToken, setuserToken] = useState("");
 
   const navigate = useNavigate();
+  localStorage.setItem("user_id", 'c8e65f41-496e-4f04-b162-f1c4eb49ecad');
+
   useEffect(() => {
     if (userToken) {
       axios
