@@ -38,7 +38,7 @@ export async function feedLoader({ params }) {
       return res;
     } else {
       const res = await client.fetch(allFeedQuery);
-console.log(res);
+      console.log(res);
       return res;
     }
   } catch (error) {

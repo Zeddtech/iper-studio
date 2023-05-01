@@ -95,7 +95,7 @@ function PinDetail() {
               <span className="font-bold px-1"> · </span>
               <span className="ms-2 font-black">
                 {savedCount || 0}
-                {savedCount ? (savedCount > 1 ? "Saves" : "Save") : "Save"}
+                {savedCount ? (savedCount > 1 ? " Saves" : " Save") : "Save"}
               </span>
             </div>
             <div className="w-full  flex-1 xl:min-w-620">
@@ -184,6 +184,7 @@ function PinDetail() {
                 {addingComment ? "adding comment..." : "Comment"}
               </button>
             </div>
+            
           </div>
           <div className="border-t-2 border-slate-200">
             {allComments?.length>0 ? (
@@ -201,6 +202,7 @@ function PinDetail() {
                       referrerPolicy="no-referrer"
                     />
                   </Link>
+                  
                   <div className="flex flex-col">
                     <p className="font-bold text-sm">
                       <Link
