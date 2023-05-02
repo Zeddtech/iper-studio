@@ -21,7 +21,6 @@ function Pin({ pin }) {
 
   const navigate = useNavigate();
 
-  console.log(pin);
   const closeAlert = () => {
     // console.log("Alert closed!");
     setShowAlert(false);

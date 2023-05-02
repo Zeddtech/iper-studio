@@ -85,6 +85,9 @@ module.exports = {
       "zoom-in": "zoom-in",
       pointer: "pointer",
     },
+    fontFamily: {
+      hel: ["helvetica", " ui-monospace", "arial", "ui-sans-serif"],
+    },
   },
   variants: {
     // backgroundColor: ['active'],

@@ -2,7 +2,8 @@
   "css.lint.unknownAtRules": "ignore",
   "tailwindCSS.includeLanguages": {
     "javascript": "javascript",
-    "html": "HTML"
+    "html": "HTML",
+    "plaintext": "html"
   },
   "editor.quickSuggestions": {
     "strings": true
@@ -11,5 +12,8 @@
     "javascript": "javascriptreact"
   },
   "reactSnippets.settings.prettierEnabled": true,
-  "tailwindCSS.emmetCompletions": true
+  "tailwindCSS.emmetCompletions": true,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
 }

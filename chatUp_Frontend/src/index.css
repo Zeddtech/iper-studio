@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: "Lato", sans-serif;
+  font-family: helvetica, ui-monospace, arial, ui-sans-serif;
 }
 .hide-scrollbar::-webkit-scrollbar {
   display: none;

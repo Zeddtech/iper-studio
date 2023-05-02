@@ -191,13 +191,14 @@ export const similarPinCategoryQuery = (pinId, pinCategory) => {
 };
 
 export const userCreatedPinsQuery = userId => {
-  const query = `*[ _type == 'pin' && userId == '${userId}'] | order(_createdAt desc){
+  const query = `*[ _type == 'pin' && userid == '${userId}'] | order(_createdAt desc){
     image,
     _id,
     destination,
     postedBy->{
       _id,
-      userName,
+      firstName,
+      lastName,
       image
     },
     "savedBy": save[]{
@@ -208,18 +209,18 @@ export const userCreatedPinsQuery = userId => {
       firstName,
       lastName,
     },
-  }`;
+  }}`;
   return query;
 };
 export const userSavedPinsQuery = userId => {
-  const query = `*[_type == 'pin' && '${userId}' in save[].userId ] | order(_createdAt desc) {
-    image{
+  const query = `*[_type == 'pin' && '${userId}' in save[].userid ] | order(_createdAt desc) {
     image,
     _id,
     destination,
     postedBy->{
       _id,
-      userName,
+      firstName,
+      lastName,
       image
     },
     "savedBy": save[]{
@@ -230,7 +231,7 @@ export const userSavedPinsQuery = userId => {
       firstName,
       lastName,
     },
-  }`;
+  }}`;
   return query;
 };
 // _id == "ca870f7f-acb1-4014-8325-2ffa499ab956";
