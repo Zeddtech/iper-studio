@@ -16,7 +16,7 @@ function Navbar({ searchTerm, setSearchTerm }) {
           placeholder="Search"
           value={searchTerm}
           onFocus={() => navigate("/search")}
-          className="p-2 w-full bg-white outline-none"
+          className="p-2 w-full bg-gray-50 outline-none"
         />
       </div>
       <div className="flex gap-3 items-center">

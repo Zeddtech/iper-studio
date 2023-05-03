@@ -50,7 +50,7 @@ function PinDetail() {
   }
   const date = new Date(pinDetail._createdAt);
   return (
-    <div className="lg:flex lg:flex-row lg:gap-3">
+    <div className="lg:flex lg:flex-row lg:gap-5 lg:justify-center">
       {pinDetail && (
         <div
           className="flex flex-col m-auto lg:m-0 bg-white "
@@ -184,10 +184,9 @@ function PinDetail() {
                 {addingComment ? "adding comment..." : "Comment"}
               </button>
             </div>
-            
           </div>
           <div className="border-t-2 border-slate-200">
-            {allComments?.length>0 ? (
+            {allComments?.length > 0 ? (
               allComments?.map(item => (
                 <div
                   className="flex gap-3 p-5  bg-white  hover:bg-[rgba(0,0,0,0.03)]
@@ -202,7 +201,7 @@ function PinDetail() {
                       referrerPolicy="no-referrer"
                     />
                   </Link>
-                  
+
                   <div className="flex flex-col">
                     <p className="font-bold text-sm">
                       <Link

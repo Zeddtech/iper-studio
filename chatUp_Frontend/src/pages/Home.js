@@ -13,14 +13,13 @@ function Home() {
   }, []);
 
   return (
-    <div className="flex bg-gray-50 md:flex-row flex-col h-screen transition-height duration-75 ease-out relative">
+    <div className="flex bg-white md:flex-row flex-col h-screen transition-height duration-75 ease-out relative">
       <LgScreenSideBar />
       <MobileSideBar />
-      <div
-        className="pb-2 flex-1 h-screen overflow-y-scroll max-w-5xl	m-auto"
-        ref={scrollRef}
-      >
-        <Outlet />
+      <div className="flex-1 overflow-y-scroll h-screen">
+        <div className="pb-2  max-w-7xl	m-auto" ref={scrollRef}>
+          <Outlet />
+        </div>
       </div>
     </div>
   );

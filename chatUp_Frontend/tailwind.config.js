@@ -80,6 +80,9 @@ module.exports = {
       transitionProperty: {
         height: "height",
       },
+      screens: {
+        979: "979px",
+      },
     },
     cursor: {
       "zoom-in": "zoom-in",
