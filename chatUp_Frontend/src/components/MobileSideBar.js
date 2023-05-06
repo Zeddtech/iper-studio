@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { AiFillCloseCircle } from "react-icons/ai";
 import { HiMenu } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import logo from "../asset/logo.png";
@@ -12,7 +11,10 @@ function MobileSideBar() {
   return (
     <>
       {toggleSidebar && (
-        <div className="absolute top-0 left-0 right-0 bottom-0 bg-blackOverlay z-0 md:hidden "></div>
+        <div
+          className="absolute top-0 left-0 right-0 bottom-0 bg-blackOverlay z-[10] md:hidden "
+          onClick={() => setToggleSidebar(false)}
+        ></div>
       )}
       <div className="flex md:hidden flex-row">
         <div className="p-2 w-full flex flex-row justify-between items-center shadow-md">
@@ -39,13 +41,6 @@ function MobileSideBar() {
               toggleSidebar ? "translate-x-0" : "-translate-x-full "
             }`}
           >
-            <div className="absolute w-full flex justify-end items-center p-2 my-8">
-              <AiFillCloseCircle
-                fontSize={30}
-                className="cursor-pointer text-cyan-400"
-                onClick={() => setToggleSidebar(false)}
-              />
-            </div>
             <Sidebar closeToggle={setToggleSidebar} />
           </div>
         }

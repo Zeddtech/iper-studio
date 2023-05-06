@@ -72,7 +72,7 @@ function Pin({ pin }) {
                     setShowAlert(true);
                   }}
                   type="button"
-                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
+                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-2 py-1 text-sm rounded-3xl hover:shadow-md outline-none"
                 >
                   {savedPostLength} Saved
                 </button>
@@ -94,7 +94,7 @@ function Pin({ pin }) {
                     }
                   }}
                   type="button"
-                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
+                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-2 py-1 text-sm rounded-3xl hover:shadow-md outline-none"
                   disabled={savingPost}
                 >
                   {savedPostLength} {savingPost ? "Saving" : "Save"}
@@ -106,7 +106,7 @@ function Pin({ pin }) {
                 <a
                   href={destination}
                   target="_blank"
-                  className="bg-white flex items-center gap-2 text-black font-bold p-2 pl-4 pr-4 rounded-full opacity-70 hover:opacity-100 hover:shadow-md"
+                  className="bg-white flex items-center gap-1 text-black font-bold py-1 px-2 rounded-full opacity-70 hover:opacity-100 hover:shadow-md text-sm"
                   rel="noreferrer"
                 >
                   <BsFillArrowUpRightCircleFill />

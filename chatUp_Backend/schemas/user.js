@@ -32,6 +32,21 @@ export default defineType({
       type: 'string',
       validation: (Rule) => Rule.email().error('enter a valid email'),
     }),
+    defineField({
+      name: 'location',
+      title: 'Location',
+      type: 'string',
+    }),
+    defineField({
+      name: 'birthDay',
+      title: 'Date of birth',
+      type: 'date',
+    }),
+    defineField({
+      name: 'website',
+      title: 'Website url',
+      type: 'url',
+    }),
 
     defineField({
       name: 'image',

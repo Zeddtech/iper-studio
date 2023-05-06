@@ -13,6 +13,8 @@ import Spinner from "../components/Spinner";
 import MasonryLayout from "../components/MansoryLayout";
 import { saveComment, savePin } from "../utils/managePins";
 import { AiOutlineLink } from "react-icons/ai";
+import format from "date-fns/format";
+import AdsBox from "../components/AdsBox";
 
 function PinDetail() {
   const { pinDetail, similarPins } = useLoaderData();
@@ -54,7 +56,7 @@ function PinDetail() {
       {pinDetail && (
         <div
           className="flex flex-col m-auto lg:m-0 bg-white "
-          style={{ maxWidth: "600px", minWidth: "300px" }}
+          style={{ maxWidth: "700px", minWidth: "300px" }}
         >
           <div className="px-4 flex flex-col pb-0">
             <Link
@@ -83,15 +85,14 @@ function PinDetail() {
             </div>
             <div className="flex justify-center items-center md:items-start flex-initial rounded-t-3xl rounded-b-lg ">
               <img
-                className="rounded-t-3xl rounded-b-lg"
+                className="rounded-t-3xl rounded-b-lg w-full"
                 src={pinDetail?.image && urlFor(pinDetail?.image).url()}
                 alt="pipe"
               />
             </div>
             <div className="w-full flex align-center text-slate-500 py-5 text-sm text-[15px]">
-              {date.toLocaleTimeString()}
-              <span className="font-bold px-1"> · </span>
-              {date.toDateString()}
+              {format(date, "p · MMMM dd, yyyy")}
+
               <span className="font-bold px-1"> · </span>
               <span className="ms-2 font-black">
                 {savedCount || 0}
@@ -202,7 +203,7 @@ function PinDetail() {
                     />
                   </Link>
 
-                  <div className="flex flex-col">
+                  <div className="flex flex-col flex-1">
                     <p className="font-bold text-sm">
                       <Link
                         to={`/user-profile/${item.postedBy?._id}`}
@@ -220,8 +221,7 @@ function PinDetail() {
                         }
                       >
                         <span className="text-slate-500 font-bold pe-1">·</span>
-                        {item.date &&
-                          new Date(item.date).toDateString().substring(4, 10)}
+                        {item.date && format(new Date(item.date), "MMMM dd")}
                       </span>
                     </p>
                     <p className="text-sm text-slate-500 py-1 text-[15px]">
@@ -248,24 +248,39 @@ function PinDetail() {
             </div>
           }
         >
-          {resolvedSimilarPins => (
-            <div className="bg-white px-3 xl:px-4">
-              <h2 className="text-center font-bold text-xl pt-8 pb-4">
-                More like this
-              </h2>
-              <MasonryLayout
-                pins={resolvedSimilarPins}
-                bp={{
-                  default: 4,
-                  3000: 1,
-                  1024: 1,
-                  1023: 3,
-                  1000: 2,
-                  500: 1,
-                }}
-              />
-            </div>
-          )}
+          {resolvedSimilarPins => {
+            return (
+              <div className="bg-white px-3 xl:px-4 flex-1 border-2 rounded-2xl flex flex-col">
+                <h2 className="text-center font-bold text-xl pt-8 pb-4 ">
+                  More like this
+                </h2>
+                {resolvedSimilarPins.length < 1 ? (
+                  <div className=" mt-10 text-center text-slate-500 w-full font-extrabold text-lg">
+                    No similar post found
+                  </div>
+                ) : (
+                  <MasonryLayout
+                    pins={resolvedSimilarPins}
+                    bp={{
+                      default: 4,
+                      3000: 2,
+                      1300: 1,
+                      1023: 3,
+                      1000: 2,
+                      500: 1,
+                    }}
+                  />
+                )}
+
+                <div className="hidden lg:flex flex-col flex-1 gap-12 pb-4 mt-20 ">
+                  <AdsBox />
+                  <AdsBox />
+                  <AdsBox />
+                  <AdsBox />
+                </div>
+              </div>
+            );
+          }}
         </Await>
       </Suspense>
     </div>

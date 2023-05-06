@@ -7,13 +7,15 @@ import piper from "../asset/piper.mp4";
 import logo from "../asset/logo.png";
 import axios from "axios";
 import { client } from "../sanityConfig";
+import { getCountry } from "../utils/countries";
+import Spinner from "../components/Spinner";
 
 function Login() {
   const [userToken, setuserToken] = useState("");
 
   const navigate = useNavigate();
-  localStorage.setItem("user_id", 'c8e65f41-496e-4f04-b162-f1c4eb49ecad');
-
+  // localStorage.setItem("user_id", "c8e65f41-496e-4f04-b162-f1c4eb49ecad");
+  // console.log(getCountry());
   useEffect(() => {
     if (userToken) {
       axios
@@ -23,7 +25,6 @@ function Login() {
             headers: {
               Authorization: `Bearer ${userToken}`,
               Accept: "application/json",
-              SameSite: "Strict",
             },
           }
         )
@@ -46,6 +47,7 @@ function Login() {
               lastName: family_name,
               image: picture,
               verified: verified_email,
+              location: getCountry(),
             })
             .then(res => {
               console.log(res);
@@ -62,12 +64,20 @@ function Login() {
   }, [userToken]);
 
   const login = useGoogleLogin({
-    onSuccess: res => setuserToken(res.access_token),
+    onSuccess: res => {
+      console.log(res);
+      setuserToken(res.access_token);
+    },
     onError: error => console.log("Login Failed:", error),
   });
 
   return (
     <div className="flex justify-start items-center flex-col h-screen ">
+      {userToken && (
+        <div className="fixed bg-blackOverlay top-0 left-0 right-0 bottom-0 flex justify-centeritems-center z-50">
+          <Spinner message={""} />
+        </div>
+      )}
       <div className="relative w-full h-full">
         <video
           src={piper}
