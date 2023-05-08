@@ -5,6 +5,7 @@ import {
   pinDetailQuery,
   searchQuery,
   similarPinCategoryQuery,
+  userActivityQuery,
   userCreatedPinsQuery,
   userQuery,
   userSavedPinsQuery,
@@ -64,8 +65,8 @@ export async function userProfileLoader({ params }) {
     const user = await client.fetch(userQuery(params.userid));
     const userCreatedPins = client.fetch(userCreatedPinsQuery(params.userid));
     const userSavedPins = client.fetch(userSavedPinsQuery(params.userid));
-
-    return defer({ user, userCreatedPins, userSavedPins });
+    const userActivity = client.fetch(userActivityQuery(params.userid));
+    return defer({ user, userCreatedPins, userSavedPins, userActivity });
   } catch (error) {
     throw new Error("something went wrong, " + error.message);
   }

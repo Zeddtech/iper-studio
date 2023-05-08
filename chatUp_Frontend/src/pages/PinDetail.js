@@ -58,7 +58,7 @@ function PinDetail() {
           className="flex flex-col m-auto lg:m-0 bg-white "
           style={{ maxWidth: "700px", minWidth: "300px" }}
         >
-          <div className="px-4 flex flex-col pb-0">
+          <div className=" flex flex-col pb-0">
             <Link
               to={`/user-profile/${pinDetail?.postedBy._id}`}
               className="flex gap-3 mt-5 items-center bg-white rounded-lg "
@@ -76,10 +76,10 @@ function PinDetail() {
               </p>
             </Link>
             <div>
-              <h1 className=" font-bold break-words mt-5 capitalize text-center text-[17px]">
+              <h1 className=" font-bold break-words mt-5 capitalize text-center text-base">
                 {pinDetail.title}
               </h1>
-              <p className="my-3 text-slate-600 text-[17px] ">
+              <p className="my-3 text-slate-600 text-base ">
                 {pinDetail.about}
               </p>
             </div>
@@ -190,7 +190,7 @@ function PinDetail() {
             {allComments?.length > 0 ? (
               allComments?.map(item => (
                 <div
-                  className="flex gap-3 p-5  bg-white  hover:bg-[rgba(0,0,0,0.03)]
+                  className="flex gap-3 py-5  bg-white  hover:bg-[rgba(0,0,0,0.03)]
                   transition-colors	border-b border-slate-200"
                   key={item._key}
                 >
@@ -243,19 +243,19 @@ function PinDetail() {
         <Await
           resolve={similarPins}
           errorElement={
-            <div className="p-5 pb-20 text-center text-slate-600 font-semibold">
+            <div className="p-5 pb-20 text-center text-slate-600 font-semibold min-w-[250px]">
               Could not load similar pipes 😬
             </div>
           }
         >
           {resolvedSimilarPins => {
             return (
-              <div className="bg-white px-3 xl:px-4 flex-1 border-2 rounded-2xl flex flex-col">
+              <div className="bg-white px-3 xl:px-4 flex-1 lg:border rounded-t-xl flex flex-col min-w-[250px] border-b-0">
                 <h2 className="text-center font-bold text-xl pt-8 pb-4 ">
                   More like this
                 </h2>
                 {resolvedSimilarPins.length < 1 ? (
-                  <div className=" mt-10 text-center text-slate-500 w-full font-extrabold text-lg">
+                  <div className=" my-10 text-center text-slate-500 w-full font-extrabold text-lg">
                     No similar post found
                   </div>
                 ) : (

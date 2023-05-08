@@ -234,5 +234,16 @@ export const userSavedPinsQuery = userId => {
   }}`;
   return query;
 };
+export const userActivityQuery = userId => {
+  const query = `{
+  "createdCount":count(*[_type == 'pin' && '${userId}' in save[].userid ]),
+    "savedCount":count(*[_type=='pin' && userid=='${userId}']),
+    "savesGotten":*[_type=='pin' && userid=='${userId}' && defined(save)]{
+      "size":count(save)         
+    },
+                  
+}`;
+  return query;
+};
 // _id == "ca870f7f-acb1-4014-8325-2ffa499ab956";
 // "104727233770123461088";

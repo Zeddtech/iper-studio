@@ -33,6 +33,11 @@ export default defineType({
       validation: (Rule) => Rule.email().error('enter a valid email'),
     }),
     defineField({
+      name: 'bio',
+      title: 'Bio',
+      type: 'string',
+    }),
+    defineField({
       name: 'location',
       title: 'Location',
       type: 'string',
