@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { MobileSideBar, LgScreenSideBar } from "../components";
 import { Outlet, useLoaderData } from "react-router-dom";
 import { useGcontex } from "../hooks/ContextProvider";
+import Footer from "../components/Footer";
 
 function Home() {
   const { setUserData } = useGcontex();
@@ -20,6 +21,7 @@ function Home() {
         <div className="pb-2  max-w-7xl	m-auto" ref={scrollRef}>
           <Outlet />
         </div>
+        <Footer />
       </div>
     </div>
   );
