@@ -46,6 +46,23 @@ export async function feedLoader({ params }) {
     throw new Error("something went wrong, " + error);
   }
 }
+export async function searchLoader({ request }) {
+  console.log("search ran");
+  const url = new URL(request.url);
+  const searchTerm = url.searchParams.get("q");
+
+  try {
+    if (searchTerm && searchTerm.length > 2) {
+      const res = await client.fetch(searchQuery(searchTerm));
+      console.log(res);
+      return res;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    throw new Error("something went wrong, " + error);
+  }
+}
 export async function pinDetailLoader({ params }) {
   console.log("pindetail ran");
   try {
@@ -60,7 +77,7 @@ export async function pinDetailLoader({ params }) {
   }
 }
 export async function userProfileLoader({ params }) {
-  console.log("pindetail ran");
+  console.log("user profile ran");
   try {
     const user = await client.fetch(userQuery(params.userid));
     const userCreatedPins = client.fetch(userCreatedPinsQuery(params.userid));

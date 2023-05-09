@@ -1,15 +1,14 @@
-import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useSearchParams } from "react-router-dom";
 
 import { Navbar } from "../components";
 
 const Pins = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useSearchParams();
 
   return (
     <div className="px-2 md:px-5">
       <div className="bg-white">
-        <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <Navbar setSearchTerm={setSearchTerm} />
       </div>
       <div className="h-full">
         <Outlet context={[searchTerm]} />

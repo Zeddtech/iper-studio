@@ -1,22 +1,41 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { IoMdAdd, IoMdSearch } from "react-icons/io";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useGcontex } from "../hooks/ContextProvider";
+import { GrLinkPrevious } from "react-icons/gr";
 
-function Navbar({ searchTerm, setSearchTerm }) {
+function Navbar({ setSearchTerm }) {
   const navigate = useNavigate();
   const { userData } = useGcontex();
+  const location = useLocation();
+  const inputref = useRef();
+  useEffect(() => {
+    if (location.pathname.includes("/search")) {
+      inputref.current.focus();
+    }
+  }, []);
+
+  function navigateToSearch() {
+    if (location.pathname !== "/search") {
+      navigate("/search");
+    }
+  }
   return (
-    <div className="flex gap-2 md:gap-5 w-full mt-5 pb-7 ">
+    <div className="flex gap-2 md:gap-4 w-full mt-5 pb-7 ">
+      <button className="rounded-e-full" onClick={() => navigate(-1)}>
+        <GrLinkPrevious className=" hover:text-cyan-400" />
+      </button>
       <div className="flex justify-start items-center w-full px-2 rounded-md bg-white border-none outline-none focus-within:shadow-sm">
         <IoMdSearch fontSize={21} className="ml-1" />
         <input
           type="text"
-          onChange={e => setSearchTerm(e.target.value)}
+          ref={inputref}
+          onChange={e => {
+            setSearchTerm({ q: e.target.value });
+          }}
           placeholder="Search"
-          value={searchTerm}
-          onFocus={() => navigate("/search")}
-          className="p-2 w-full bg-gray-50 outline-none"
+          onFocus={navigateToSearch}
+          className="p-2 w-full bg-gray-200 rounded-md outline-none"
         />
       </div>
       <div className="flex gap-3 items-center">

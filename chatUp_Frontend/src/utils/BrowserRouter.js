@@ -16,6 +16,7 @@ import {
   feedLoader,
   pinDetailLoader,
   userProfileLoader,
+  searchLoader,
 } from "../utils/routeLoader";
 import NotFound from "../pages/NotFound";
 import ServerDown from "../pages/ServerDown";
@@ -46,7 +47,8 @@ const router = createBrowserRouter(
             id="pindetail"
           />
           <Route path="create-pin" element={<CreatePin />} />
-          <Route path="search" element={<Search />} />
+
+          <Route path="search" element={<Search />} loader={searchLoader} />
         </Route>
         <Route
           path="user-profile/:userid"
