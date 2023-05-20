@@ -52,6 +52,16 @@ export default defineType({
       title: 'Website url',
       type: 'url',
     }),
+    defineField({
+      name: 'instagramUrl',
+      title: 'instagram url',
+      type: 'url',
+    }),
+    defineField({
+      name: 'facebookUrl',
+      title: 'facebook url',
+      type: 'url',
+    }),
 
     defineField({
       name: 'image',

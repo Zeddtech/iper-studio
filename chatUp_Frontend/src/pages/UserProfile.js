@@ -2,7 +2,12 @@ import React, { Suspense, useEffect, useRef, useState } from "react";
 import { AiOutlineCalendar, AiOutlineLink } from "react-icons/ai";
 import { GrFacebook, GrInstagram } from "react-icons/gr";
 import { CiLocationOn } from "react-icons/ci";
-import { Await, useLoaderData, useRouteLoaderData } from "react-router-dom";
+import {
+  Await,
+  Link,
+  useLoaderData,
+  useRouteLoaderData,
+} from "react-router-dom";
 import { format } from "date-fns";
 import MasonryLayout from "../components/MansoryLayout";
 import Spinner from "../components/Spinner";
@@ -20,6 +25,7 @@ function UserProfile() {
   const Created = useRef();
   const Saved = useRef();
   const [tabUnderlineLeft, setTabUnderlineLeft] = useState();
+
   useEffect(() => {
     activeBtn == "created"
       ? setTabUnderlineLeft(Created?.current?.offsetLeft)
@@ -53,27 +59,47 @@ function UserProfile() {
             </div>
           ) : (
             <div className="lg:max-w-[63%]  m-auto lg:-mt-8">
-              <div className=" flex flex-col gap-5 mb-12 px-10 lg:px-0">
+              <div className=" flex flex-col gap-5 mb-12 lg:px-0">
                 <div className="flex w-full font-hel justify-between ">
                   <h1 className=" text-xl md:text-2xl mt-1 text-slate-950 font-semibold">
                     {user[0]?.firstName + "  " + user[0]?.lastName}
                   </h1>
                   <div className="flex items-center gap-3">
                     <div className=" text-2xl gap-2 hidden min-[425px]:flex">
-                      <GrFacebook className="text-[#3b5998] rounded" />
-
-                      <GrInstagram className="text-white insta p-[2px] rounded" />
+                      {user[0].facebookUrl && (
+                        <a
+                          href={user[0].facebookUrl}
+                          rel="noreferrer nofollow noopener"
+                          target="_blank"
+                        >
+                          <GrFacebook className="text-[#3b5998] rounded" />
+                        </a>
+                      )}
+                      {user[0].instagramUrl && (
+                        <a
+                          href={user[0].instagramUrl}
+                          target="_blank"
+                          rel="noreferrer nofollow noopener"
+                        >
+                          <GrInstagram className="text-white insta p-[2px] rounded" />
+                        </a>
+                      )}
                     </div>
-                    <div className="border border-cyan-400 font-semibold grid place-items-center px-2 py-1 rounded-full text-cyan-400 text-sm hover:text-white hover:bg-cyan-400 transition-all lg:text-base ">
-                      Edit profile
-                    </div>
+                    {user[0]?._id === loginuser._id && (
+                      <Link
+                        to={"/edit-profile"}
+                        className="border border-cyan-400 font-semibold grid place-items-center px-2 py-1 rounded-full text-cyan-400 text-sm hover:text-white hover:bg-cyan-400 transition-all lg:text-base "
+                      >
+                        Edit profile
+                      </Link>
+                    )}
                   </div>
                 </div>
 
                 {user[0]?.bio && (
                   <p className=" text-[15px] text-slate-600">{user[0]?.bio}</p>
                 )}
-                <div className="flex  flex-wrap gap-3 text-slate-600">
+                <div className="flex  flex-wrap gap-3 text-slate-600 text-sm lg:text-base">
                   {user[0]?.location && (
                     <p className="flex justify-center gap-1 items-center">
                       <span>
@@ -87,10 +113,10 @@ function UserProfile() {
                       <span>
                         <BsBalloon />
                       </span>
-                      Born {format(new Date(user[0]?.birthDay), "MMMM do")}
+                      Born {format(new Date(user[0]?.birthDay), "MMMM do,")}
                       {user[0]?._id === loginuser._id && (
                         <span>
-                          ,{format(new Date(user[0]?.birthDay), "yyyy")}
+                          {format(new Date(user[0]?.birthDay), "yyyy")}
                         </span>
                       )}
                     </p>

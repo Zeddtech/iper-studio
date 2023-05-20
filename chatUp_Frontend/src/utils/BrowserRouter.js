@@ -20,6 +20,7 @@ import {
 } from "../utils/routeLoader";
 import NotFound from "../pages/NotFound";
 import ServerDown from "../pages/ServerDown";
+import EditProfile from "../pages/editProfile";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,6 +34,7 @@ const router = createBrowserRouter(
       >
         <Route element={<Pins />}>
           <Route index element={<Feed />} loader={feedLoader} id="feed" />
+          <Route path="search" element={<Search />} loader={searchLoader} />
           <Route
             path="category/:categoryId"
             element={<Feed />}
@@ -46,15 +48,15 @@ const router = createBrowserRouter(
             errorElement={<ServerDown />}
             id="pindetail"
           />
-          <Route path="create-pin" element={<CreatePin />} />
 
-          <Route path="search" element={<Search />} loader={searchLoader} />
+          <Route
+            path="user-profile/:userid"
+            element={<UserProfile />}
+            loader={userProfileLoader}
+          />
         </Route>
-        <Route
-          path="user-profile/:userid"
-          element={<UserProfile />}
-          loader={userProfileLoader}
-        />
+        <Route path="create-pin" element={<CreatePin />} />
+        <Route path="edit-profile" element={<EditProfile />} />
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
-import { IoMdAdd, IoMdSearch } from "react-icons/io";
+import { IoMdAdd } from "react-icons/io";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useGcontex } from "../hooks/ContextProvider";
-import { GrLinkPrevious } from "react-icons/gr";
+import { HiArrowLeft } from "react-icons/hi";
 
 function Navbar({ setSearchTerm }) {
   const navigate = useNavigate();
@@ -22,18 +22,17 @@ function Navbar({ setSearchTerm }) {
   }
   return (
     <div className="flex gap-2 md:gap-4 w-full mt-5 pb-7 ">
-      <button className="rounded-e-full" onClick={() => navigate(-1)}>
-        <GrLinkPrevious className=" hover:text-cyan-400" />
+      <button className="rounded-e-full text-xl" onClick={() => navigate(-1)}>
+        <HiArrowLeft className=" hover:text-cyan-400" />
       </button>
       <div className="flex justify-start items-center w-full px-2 rounded-md bg-white border-none outline-none focus-within:shadow-sm">
-        <IoMdSearch fontSize={21} className="ml-1" />
         <input
           type="text"
           ref={inputref}
           onChange={e => {
             setSearchTerm({ q: e.target.value });
           }}
-          placeholder="Search"
+          placeholder="Search Ipes"
           onFocus={navigateToSearch}
           className="p-2 w-full bg-gray-200 rounded-md outline-none"
         />

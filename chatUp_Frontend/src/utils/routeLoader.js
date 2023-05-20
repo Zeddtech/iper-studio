@@ -77,7 +77,7 @@ export async function pinDetailLoader({ params }) {
   }
 }
 export async function userProfileLoader({ params }) {
-  console.log("user profile ran");
+  console.log("user profile loader ran");
   try {
     const user = await client.fetch(userQuery(params.userid));
     const userCreatedPins = client.fetch(userCreatedPinsQuery(params.userid));

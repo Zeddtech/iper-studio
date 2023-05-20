@@ -1,67 +1,35 @@
 import React, { useState } from "react";
-import { AiOutlineCloudUpload } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
-import { MdDelete } from "react-icons/md";
+import { useNavigate, useRouteLoaderData } from "react-router-dom";
 
 import { categories } from "../utils/GROQqueries";
 import { client } from "../sanityConfig";
-import Spinner from "../components/Spinner";
-import {
-  formFields,
-  initalState,
-  imageFormat,
-} from "../components/createpinFeatures";
+import { formFields, initalState } from "../components/createpinFeatures";
+import IpeImageUpload from "../components/IpeImageUpload";
 
-import { useGcontex } from "../hooks/ContextProvider";
 const CreatePin = () => {
-  const [PipeData, setPipeData] = useState(initalState);
-  const [loading, setLoading] = useState(false);
+  console.log("create pin rendered ");
+  const [ipeFields, setIpeFields] = useState(initalState);
   const [creatingPipe, setCreatingPipe] = useState(false);
-  const [fields, setFields] = useState();
+  const [incompleteFields, setIncompleteFields] = useState();
 
-  const [wrongImageType, setWrongImageType] = useState(false);
-  const { userData } = useGcontex();
+  const userData = useRouteLoaderData("root");
   const navigate = useNavigate();
   const handleChange = (name, value) => {
-    setPipeData({
-      ...PipeData,
+    setIpeFields({
+      ...ipeFields,
       [name]: value,
     });
   };
 
-  const uploadImage = e => {
-    const pipeImage = e.target.files[0];
-    // uploading asset to sanity
-    if (imageFormat.includes(pipeImage.type)) {
-      setWrongImageType(false);
-      setLoading(true);
-      client.assets
-        .upload("image", pipeImage, {
-          contentType: pipeImage.type,
-          filename: userData._id + pipeImage.name,
-        })
-        .then(document => {
-          handleChange("imageAsset", document);
-          setLoading(false);
-        })
-        .catch(error => {
-          console.log("Upload failed:", error.message);
-        });
-    } else {
-      setLoading(false);
-      setWrongImageType(true);
-    }
-  };
-
   const createPipe = () => {
     setCreatingPipe(true);
-    const { title, about, destination, imageAsset, category } = PipeData;
-    console.log(PipeData);
-    if (Object.keys(PipeData).some(key => PipeData[key] === "")) {
+    const { title, about, destination, imageAsset, category } = ipeFields;
+    console.log(ipeFields);
+    if (Object.keys(ipeFields).some(key => ipeFields[key] === "")) {
       setCreatingPipe(false);
-      setFields(true);
+      setIncompleteFields(true);
       const errortimeOut = setTimeout(() => {
-        setFields(false);
+        setIncompleteFields(false);
         clearTimeout(errortimeOut);
       }, 3000);
     } else {
@@ -93,63 +61,17 @@ const CreatePin = () => {
 
   return (
     <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">
-      {fields && (
+      {incompleteFields && (
         <p className="fixed top-0 text-red-400   p-4 rounded bg-red-100 font-semibold">
           All fields are required
         </p>
       )}
       <div className=" flex lg:flex-row flex-col justify-center items-center bg-white md:p-6 p-3 lg:w-4/5  w-full">
-        <div className="bg-secondaryColor p-3 flex flex-0.7 w-full">
-          <div className=" flex justify-center items-center flex-col border-2 border-dotted border-gray-300 p-3 w-full h-[300px] mx-auto">
-            {loading && <Spinner />}
-            {wrongImageType && (
-              <div className="w-full  text-center text-sm text-red-400 font-black ">
-                <p>wrong image type/format.</p>
-                <p>
-                  Accepted image type includes .jpg .png .svg .jpeg .gif .tiff
-                </p>
-              </div>
-            )}
-            {!PipeData.imageAsset ? (
-              <label>
-                <div className="flex flex-col items-center justify-center h-full cursor-pointer">
-                  <div className="flex flex-col justify-center items-center">
-                    <p className="font-bold text-2xl">
-                      <AiOutlineCloudUpload />
-                    </p>
-                    <p className="text-lg">Click to upload</p>
-                  </div>
-
-                  <p className="mt-10 text-gray-500 text-sm font-semibold">
-                    Use high-quality JPG, JPEG, SVG, PNG, GIF or TIFF less than
-                    10MB
-                  </p>
-                </div>
-                <input
-                  type="file"
-                  name="upload-image"
-                  onChange={uploadImage}
-                  className="w-0 h-0"
-                />
-              </label>
-            ) : (
-              <div className="relative h-full">
-                <img
-                  src={PipeData.imageAsset?.url}
-                  alt="uploaded-pic"
-                  className="h-full w-full"
-                />
-                <button
-                  type="button"
-                  className="absolute bottom-3 right-3 p-3 rounded-full bg-white text-xl cursor-pointer outline-none hover:shadow-md transition-all duration-500 ease-in-out"
-                  // onClick={() => setImageAsset(null)}
-                >
-                  <MdDelete />
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
+        <IpeImageUpload
+          userData={userData}
+          handleChange={handleChange}
+          ipeFields={ipeFields}
+        />
 
         <div className="flex flex-1 flex-col gap-10 lg:pl-5 mt-10 w-full">
           {formFields.map(({ name, type, label }, i) => {
@@ -163,7 +85,7 @@ const CreatePin = () => {
                   id={name}
                   className="block outline-none text-xl pt-4 pb-2 px-0 w-full  text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-cyan-400 peer"
                   placeholder=" "
-                  value={PipeData[name]}
+                  value={ipeFields[name]}
                   onChange={e => handleChange(name, e.target.value)}
                 />
                 <label
@@ -182,7 +104,7 @@ const CreatePin = () => {
                 onChange={e => {
                   handleChange("category", e.target.value);
                 }}
-                className="outline-none w-full text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer text-lg font-bold mb-2  capitalize"
+                className="outline-none w-full  border-b-2 border-gray-200 p-2 rounded-md cursor-pointer text-lg font-bold mb-2  capitalize"
               >
                 <option value="others" className="sm:text-bg bg-white">
                   Select Category

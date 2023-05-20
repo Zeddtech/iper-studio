@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Link, NavLink,  useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../asset/logo.png";
 import { HiHome } from "react-icons/hi";
 import { IoIosArrowForward } from "react-icons/io";
@@ -14,7 +14,7 @@ const isActiveStyle =
 
 function Sidebar({ closeToggle }) {
   function handleCloseSidebar() {
-    closeToggle(false);
+    if (closeToggle) closeToggle(false);
   }
   const navigate = useNavigate();
   const { userData } = useGcontex();
@@ -88,9 +88,9 @@ function Sidebar({ closeToggle }) {
             className="rounded py-1 px-2 hover:bg-red-500 border hover:text-white text-slate-500 font-semibold"
             onClick={() => {
               if (confirm("Do you want to logout? ")) {
+                navigate("/login", { replace: true });
                 googleLogout();
                 localStorage.clear();
-                navigate("/login", { replace: true });
               }
             }}
           >

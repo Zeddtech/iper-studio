@@ -15,5 +15,12 @@
   "tailwindCSS.emmetCompletions": true,
   "files.associations": {
     "*.css": "tailwindcss"
-  }
+  },
+  "turboConsoleLog.addSemicolonInTheEnd": true,
+  "turboConsoleLog.includeFileNameAndLineNum": false,
+  "turboConsoleLog.insertEmptyLineAfterLogMessage": true,
+  "turboConsoleLog.insertEnclosingClass": false,
+  "turboConsoleLog.insertEnclosingFunction": true,
+  "turboConsoleLog.wrapLogMessage": true,
+  "turboConsoleLog.delimiterInsideMessage": ","
 }

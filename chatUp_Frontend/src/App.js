@@ -4,7 +4,7 @@ import "../src/asset/global.css";
 
 const App = () => {
   return (
-    <div className="min-w-350">
+    <div className="min-w-[300px]">
       <Outlet />
     </div>
   );

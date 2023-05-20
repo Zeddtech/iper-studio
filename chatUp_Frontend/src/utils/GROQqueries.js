@@ -236,8 +236,8 @@ export const userSavedPinsQuery = userId => {
 };
 export const userActivityQuery = userId => {
   const query = `{
-  "createdCount":count(*[_type == 'pin' && '${userId}' in save[].userid ]),
-    "savedCount":count(*[_type=='pin' && userid=='${userId}']),
+  "savedCount":count(*[_type == 'pin' && '${userId}' in save[].userid ]),
+    "createdCount":count(*[_type=='pin' && userid=='${userId}']),
     "savesGotten":*[_type=='pin' && userid=='${userId}' && defined(save)]{
       "size":count(save)         
     },
