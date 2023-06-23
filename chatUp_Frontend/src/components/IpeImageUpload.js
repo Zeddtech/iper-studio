@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import Spinner from "../components/Spinner";
-import { imageFormat } from "./createpinFeatures";
+import { imageFormat } from "./createIpeFeatures";
 import { client } from "../sanityConfig";
 
 function IpeImageUpload({ userData, handleChange, ipeFields }) {
@@ -12,15 +12,15 @@ function IpeImageUpload({ userData, handleChange, ipeFields }) {
   const [wrongImageType, setWrongImageType] = useState(false);
 
   const uploadImage = e => {
-    const pipeImage = e.target.files[0];
+    const ipeImage = e.target.files[0];
     // uploading asset to sanity
-    if (imageFormat.includes(pipeImage.type)) {
+    if (imageFormat.includes(ipeImage.type)) {
       setWrongImageType(false);
       setLoading(true);
       client.assets
-        .upload("image", pipeImage, {
-          contentType: pipeImage.type,
-          filename: userData._id + pipeImage.name,
+        .upload("image", ipeImage, {
+          contentType: ipeImage.type,
+          filename: userData._id + ipeImage.name,
         })
         .then(document => {
           handleChange("imageAsset", document);

@@ -18,7 +18,7 @@ const notActiveBtnStyles =
   "bg-primary  text-black font-bold p-2  w-20 outline-none hover:bg-gray-200 transition duration-300 rounded-t";
 
 function UserProfile() {
-  const { user, userCreatedPins, userSavedPins, userActivity } =
+  const { user, userCreatedIpes, userSavedIpes, userActivity } =
     useLoaderData();
   const loginuser = useRouteLoaderData("root");
   const [activeBtn, setActiveBtn] = useState("created");
@@ -161,7 +161,7 @@ function UserProfile() {
                           <span className="text-slate-800">
                             {activity.createdCount}
                           </span>
-                          Pipes
+                          Ipes
                         </p>
                         <p className="text-slate-400 text-sm flex gap-1">
                           <span className="text-slate-800">
@@ -212,21 +212,21 @@ function UserProfile() {
 
               <div className="px-2">
                 <Suspense
-                  fallback={<Spinner message={"loading similar pipes"} />}
+                  fallback={<Spinner message={"loading similar Ipes"} />}
                 >
                   <Await
                     resolve={
-                      activeBtn == "created" ? userCreatedPins : userSavedPins
+                      activeBtn == "created" ? userCreatedIpes : userSavedIpes
                     }
                   >
-                    {pins => {
-                      return pins?.length === 0 ? (
+                    {ipes => {
+                      return ipes?.length === 0 ? (
                         <div className="flex justify-center font-bold items-center w-full text-2xl mt-2 h-64 capitalize">
-                          No {activeBtn} Pipe Found!
+                          No {activeBtn} Ipe Found!
                         </div>
                       ) : (
                         <MasonryLayout
-                          pins={pins}
+                          ipes={ipes}
                           bp={{
                             default: 4,
                             2000: 3,

@@ -1,5 +1,5 @@
 import React from "react";
-import { Audio, Circles } from "react-loader-spinner";
+import { Circles } from "react-loader-spinner";
 
 function Spinner({ message }) {
   return (

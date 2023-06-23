@@ -12,6 +12,7 @@ import Footer from "../components/Footer";
 import SpinnerOfDoom from "../components/SpinnerOfDoom";
 
 function Home() {
+  console.log(" Home rendered ");
   const { setUserData } = useGcontex();
   const udata = useLoaderData();
   const scrollRef = useRef(null);
@@ -30,7 +31,7 @@ function Home() {
         navigation.location.pathname !== location.pathname ? (
           <SpinnerOfDoom />
         ) : (
-          <div className="pb-2  max-w-7xl	mx-auto" ref={scrollRef}>
+          <div className="pb-2  max-w-7xl	mx-auto w-full" ref={scrollRef}>
             <Outlet />
           </div>
         )}

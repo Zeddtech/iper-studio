@@ -11,26 +11,27 @@ import { urlFor } from "../sanityConfig";
 
 import Spinner from "../components/Spinner";
 import MasonryLayout from "../components/MansoryLayout";
-import { saveComment, savePin } from "../utils/managePins";
+import { saveComment, saveIpe } from "../utils/manageIpes";
 import { AiOutlineLink } from "react-icons/ai";
 import format from "date-fns/format";
 import AdsBox from "../components/AdsBox";
 
-function PinDetail() {
-  const { pinDetail, similarPins } = useLoaderData();
+function ipeDetail() {
+  const { ipeDetail, similarIpes } = useLoaderData();
+
   const user = useRouteLoaderData("root");
   const [hasSavedPost, sethasSavedPost] = useState(() =>
-    pinDetail?.savedBy?.map(item => item?.savedBy?._id)?.includes(user?._id)
+    ipeDetail?.savedBy?.map(item => item?.savedBy?._id)?.includes(user?._id)
   );
   const [savingPost, setSavingPost] = useState(false);
-  const [savedCount, setSavedCount] = useState(pinDetail?.savedBy?.length);
+  const [savedCount, setSavedCount] = useState(ipeDetail?.savedBy?.length);
   const [comment, setComment] = useState("");
   const [addingComment, setAddingComment] = useState(false);
-  const [allComments, setAllComments] = useState(pinDetail?.comments || []);
+  const [allComments, setAllComments] = useState(ipeDetail?.comments || []);
   function addComment() {
     if (!addingComment) {
       setAddingComment(true);
-      saveComment(user._id, pinDetail._id, comment).then(() => {
+      saveComment(user._id, ipeDetail._id, comment).then(() => {
         setAllComments(prev => [
           {
             _key: comment,
@@ -50,44 +51,44 @@ function PinDetail() {
       });
     }
   }
-  const date = new Date(pinDetail._createdAt);
+  const date = new Date(ipeDetail._createdAt);
   return (
     <div className="lg:flex lg:flex-row lg:gap-5 lg:justify-center">
-      {pinDetail && (
+      {ipeDetail && (
         <div
           className="flex flex-col m-auto lg:m-0 bg-white "
           style={{ maxWidth: "700px", minWidth: "300px" }}
         >
           <div className=" flex flex-col pb-0">
             <Link
-              to={`/user-profile/${pinDetail?.postedBy._id}`}
+              to={`/user-profile/${ipeDetail?.postedBy._id}`}
               className="flex gap-3 mt-5 items-center bg-white rounded-lg "
             >
               <img
-                src={pinDetail?.postedBy.image}
+                src={ipeDetail?.postedBy.image}
                 className="w-12 h-12 rounded-full "
                 alt="user-profile"
                 referrerPolicy="no-referrer"
               />
               <p className="font-bold hover:text-cyan-400 text-[15px]">
-                {pinDetail?.postedBy.firstName +
+                {ipeDetail?.postedBy.firstName +
                   " " +
-                  pinDetail?.postedBy.lastName}
+                  ipeDetail?.postedBy.lastName}
               </p>
             </Link>
             <div>
               <h1 className=" font-bold break-words mt-5 capitalize text-center text-base">
-                {pinDetail.title}
+                {ipeDetail.title}
               </h1>
               <p className="my-3 text-slate-600 text-base ">
-                {pinDetail.about}
+                {ipeDetail.about}
               </p>
             </div>
             <div className="flex justify-center items-center md:items-start flex-initial rounded-t-3xl rounded-b-lg ">
               <img
                 className="rounded-t-3xl rounded-b-lg w-full"
-                src={pinDetail?.image && urlFor(pinDetail?.image).url()}
-                alt="pipe"
+                src={ipeDetail?.image && urlFor(ipeDetail?.image).url()}
+                alt="Ipe"
               />
             </div>
             <div className="w-full flex align-center text-slate-500 py-5 text-sm text-[15px]">
@@ -103,10 +104,10 @@ function PinDetail() {
               <div className="grid grid-cols-3 py-3 border-y-2 border-slate-200 justify-items-center	items-center">
                 <div className="flex  items-center">
                   <a
-                    href={`${urlFor(pinDetail.image).url()}?dl=`}
+                    href={`${urlFor(ipeDetail.image).url()}?dl=`}
                     download
                     className="bg-secondaryColor p-2 text-2xl rounded-full flex items-center justify-center text-dark opacity-75 hover:opacity-100 hover:text-cyan-400 transition"
-                    title="download pipe"
+                    title="download Ipe"
                   >
                     <MdDownloadForOffline />
                   </a>
@@ -128,8 +129,8 @@ function PinDetail() {
                       e.stopPropagation();
                       if (!hasSavedPost) {
                         setSavingPost(true);
-                        savePin(
-                          pinDetail?._id,
+                        saveIpe(
+                          ipeDetail?._id,
                           user?._id,
                           setSavedCount,
                           setSavingPost,
@@ -147,11 +148,12 @@ function PinDetail() {
                   </button>
                 )}
                 <a
-                  href={pinDetail.destination}
+                  href={ipeDetail.destination}
                   target="_blank"
                   rel="noreferrer"
                   className="text-2xl bg-secondaryColor p-2  rounded-full flex items-center justify-center text-dark opacity-75 hover:opacity-100 hover:text-cyan-400 transition"
-                  title="Pipe Url Destination"
+                  title="Ipe Url Destination"
+                  onClick={e => e.stopPropagation()}
                 >
                   <AiOutlineLink />
                 </a>
@@ -239,28 +241,28 @@ function PinDetail() {
         </div>
       )}
 
-      <Suspense fallback={<Spinner message={"loading similar pipes"} />}>
+      <Suspense fallback={<Spinner message={"loading similar Ipes"} />}>
         <Await
-          resolve={similarPins}
+          resolve={similarIpes}
           errorElement={
             <div className="p-5 pb-20 text-center text-slate-600 font-semibold min-w-[250px]">
-              Could not load similar pipes 😬
+              Could not load similar Ipes 😬
             </div>
           }
         >
-          {resolvedSimilarPins => {
+          {resolvedSimilarIpe => {
             return (
               <div className="bg-white px-3 xl:px-4 flex-1 lg:border rounded-t-xl flex flex-col min-w-[250px] border-b-0">
                 <h2 className="text-center font-bold text-xl pt-8 pb-4 ">
                   More like this
                 </h2>
-                {resolvedSimilarPins.length < 1 ? (
+                {resolvedSimilarIpe.length < 1 ? (
                   <div className=" my-10 text-center text-slate-500 w-full font-extrabold text-lg">
                     No similar post found
                   </div>
                 ) : (
                   <MasonryLayout
-                    pins={resolvedSimilarPins}
+                    Ipes={resolvedSimilarIpe}
                     bp={{
                       default: 4,
                       3000: 2,
@@ -286,4 +288,4 @@ function PinDetail() {
     </div>
   );
 }
-export default PinDetail;
+export default ipeDetail;

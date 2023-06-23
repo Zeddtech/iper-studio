@@ -1,5 +1,5 @@
 import Masonry from "react-masonry-css";
-import Pin from "./Pin";
+import Ipe from "./Ipe";
 
 const breakpointColumnsObj = {
   default: 4,
@@ -10,11 +10,11 @@ const breakpointColumnsObj = {
   500: 1,
 };
 
-const MasonryLayout = ({ pins, bp }) => {
+const MasonryLayout = ({ ipes, bp }) => {
   return (
     <Masonry className="flex " breakpointCols={bp || breakpointColumnsObj}>
-      {pins?.map((pin, i) => (
-        <Pin key={pin._id} pin={pin} i={i} className="w-max" />
+      {ipes?.map((ipe, i) => (
+        <Ipe key={ipe._id} ipe={ipe} i={i} className="w-max" />
       ))}
     </Masonry>
   );

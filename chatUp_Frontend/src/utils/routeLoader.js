@@ -2,13 +2,13 @@ import { defer, redirect } from "react-router-dom";
 import { client } from "../sanityConfig";
 import {
   allFeedQuery,
-  pinDetailQuery,
+  ipeDetailQuery,
   searchQuery,
-  similarPinCategoryQuery,
+  similarIpeCategoryQuery,
   userActivityQuery,
-  userCreatedPinsQuery,
+  userCreatedIpesQuery,
   userQuery,
-  userSavedPinsQuery,
+  userSavedIpesQuery,
 } from "./GROQqueries";
 
 export async function userLoader() {
@@ -63,15 +63,15 @@ export async function searchLoader({ request }) {
     throw new Error("something went wrong, " + error);
   }
 }
-export async function pinDetailLoader({ params }) {
-  console.log("pindetail ran");
+export async function ipeDetailLoader({ params }) {
+  console.log("ipedetail ran");
   try {
-    const pinDetail = await client.fetch(pinDetailQuery(params.PinId));
-    const similarPins = client.fetch(
-      similarPinCategoryQuery(pinDetail._id, pinDetail.category)
+    const ipeDetail = await client.fetch(ipeDetailQuery(params.IpeId));
+    const similarIpes = client.fetch(
+      similarIpeCategoryQuery(ipeDetail._id, ipeDetail.category)
     );
-    console.log(pinDetail);
-    return defer({ pinDetail, similarPins });
+    console.log(ipeDetail);
+    return defer({ ipeDetail, similarIpes });
   } catch (error) {
     throw new Error("something went wrong, " + error.message);
   }
@@ -80,10 +80,10 @@ export async function userProfileLoader({ params }) {
   console.log("user profile loader ran");
   try {
     const user = await client.fetch(userQuery(params.userid));
-    const userCreatedPins = client.fetch(userCreatedPinsQuery(params.userid));
-    const userSavedPins = client.fetch(userSavedPinsQuery(params.userid));
+    const userCreatedIpes = client.fetch(userCreatedIpesQuery(params.userid));
+    const userSavedIpes = client.fetch(userSavedIpesQuery(params.userid));
     const userActivity = client.fetch(userActivityQuery(params.userid));
-    return defer({ user, userCreatedPins, userSavedPins, userActivity });
+    return defer({ user, userCreatedIpes, userSavedIpes, userActivity });
   } catch (error) {
     throw new Error("something went wrong, " + error.message);
   }

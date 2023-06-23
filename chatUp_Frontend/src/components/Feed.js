@@ -2,11 +2,11 @@ import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import MasonryLayout from "./MansoryLayout";
 
 function Feed() {
-  const pins = useLoaderData();
+  const ipes = useLoaderData();
   const navigate = useNavigate();
   const { categoryId } = useParams();
-  if (pins.length > 0) {
-    return <div>{pins && <MasonryLayout pins={pins} />}</div>;
+  if (ipes.length > 0) {
+    return <div>{ipes && <MasonryLayout ipes={ipes} />}</div>;
   } else {
     return (
       <div className="h-[50vh]">
@@ -23,9 +23,7 @@ function Feed() {
           <button
             className="rounded py-1 px-2 hover:bg-cyan-600 border  text-white font-semibold bg-cyan-400 block"
             onClick={() => {
-              if (confirm("Do you want to logout? ")) {
-                navigate("/create-pipe");
-              }
+              navigate("/create-Ipe");
             }}
           >
             Create Ipe

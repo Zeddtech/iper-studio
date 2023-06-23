@@ -3,13 +3,13 @@ import { useNavigate, useRouteLoaderData } from "react-router-dom";
 
 import { categories } from "../utils/GROQqueries";
 import { client } from "../sanityConfig";
-import { formFields, initalState } from "../components/createpinFeatures";
+import { formFields, initalState } from "../components/createIpeFeatures";
 import IpeImageUpload from "../components/IpeImageUpload";
 
-const CreatePin = () => {
-  console.log("create pin rendered ");
+const CreateIpe = () => {
+  console.log("create ipe rendered ");
   const [ipeFields, setIpeFields] = useState(initalState);
-  const [creatingPipe, setCreatingPipe] = useState(false);
+  const [creatingIpe, setCreatingIpe] = useState(false);
   const [incompleteFields, setIncompleteFields] = useState();
 
   const userData = useRouteLoaderData("root");
@@ -21,21 +21,21 @@ const CreatePin = () => {
     });
   };
 
-  const createPipe = () => {
-    setCreatingPipe(true);
+  const createIpe = () => {
+    setCreatingIpe(true);
     const { title, about, destination, imageAsset, category } = ipeFields;
     console.log(ipeFields);
     if (Object.keys(ipeFields).some(key => ipeFields[key] === "")) {
-      setCreatingPipe(false);
+      setCreatingIpe(false);
       setIncompleteFields(true);
       const errortimeOut = setTimeout(() => {
         setIncompleteFields(false);
         clearTimeout(errortimeOut);
       }, 3000);
     } else {
-      console.log("create pin ran ");
+      console.log("create ipe ran ");
       const doc = {
-        _type: "pin",
+        _type: "ipe",
         title,
         about,
         destination,
@@ -66,7 +66,7 @@ const CreatePin = () => {
           All fields are required
         </p>
       )}
-      <div className=" flex lg:flex-row flex-col justify-center items-center bg-white md:p-6 p-3 lg:w-4/5  w-full">
+      <div className=" flex lg:flex-row flex-col justify-center items-center bg-white md:p-6 p-3   w-full">
         <IpeImageUpload
           userData={userData}
           handleChange={handleChange}
@@ -134,11 +134,11 @@ const CreatePin = () => {
               )}
               <button
                 type="button"
-                onClick={createPipe}
+                onClick={createIpe}
                 className="bg-red-500 text-white font-bold p-3 rounded-full outline-none ms-auto"
-                disabled={creatingPipe}
+                disabled={creatingIpe}
               >
-                {creatingPipe ? "Saving Pipe . . ." : "Save Pipe"}
+                {creatingIpe ? "Saving Ipe . . ." : "Save Ipe"}
               </button>
             </div>
           </div>
@@ -148,4 +148,4 @@ const CreatePin = () => {
   );
 };
 
-export default CreatePin;
+export default CreateIpe;

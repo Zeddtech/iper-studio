@@ -2,67 +2,67 @@ export const categories = [
   {
     name: "cars",
     image:
-      "https://i.pinimg.com/750x/eb/47/44/eb4744eaa3b3ccd89749fa3470e2b0de.jpg",
+      "https://i.ipeimg.com/750x/eb/47/44/eb4744eaa3b3ccd89749fa3470e2b0de.jpg",
   },
   {
     name: "fitness",
     image:
-      "https://i.pinimg.com/236x/25/14/29/251429345940a47490cc3d47dfe0a8eb.jpg",
+      "https://i.ipeimg.com/236x/25/14/29/251429345940a47490cc3d47dfe0a8eb.jpg",
   },
   {
     name: "wallpaper",
     image:
-      "https://i.pinimg.com/236x/03/48/b6/0348b65919fcbe1e4f559dc4feb0ee13.jpg",
+      "https://i.ipeimg.com/236x/03/48/b6/0348b65919fcbe1e4f559dc4feb0ee13.jpg",
   },
   {
     name: "websites",
     image:
-      "https://i.pinimg.com/750x/66/b1/29/66b1296d36598122e6a4c5452b5a7149.jpg",
+      "https://i.ipeimg.com/750x/66/b1/29/66b1296d36598122e6a4c5452b5a7149.jpg",
   },
   {
     name: "photo",
     image:
-      "https://i.pinimg.com/236x/72/8c/b4/728cb43f48ca762a75da645c121e5c57.jpg",
+      "https://i.ipeimg.com/236x/72/8c/b4/728cb43f48ca762a75da645c121e5c57.jpg",
   },
   {
     name: "food",
     image:
-      "https://i.pinimg.com/236x/7d/ef/15/7def15ac734837346dac01fad598fc87.jpg",
+      "https://i.ipeimg.com/236x/7d/ef/15/7def15ac734837346dac01fad598fc87.jpg",
   },
   {
     name: "nature",
     image:
-      "https://i.pinimg.com/236x/b9/82/d4/b982d49a1edd984c4faef745fd1f8479.jpg",
+      "https://i.ipeimg.com/236x/b9/82/d4/b982d49a1edd984c4faef745fd1f8479.jpg",
   },
   {
     name: "art",
     image:
-      "https://i.pinimg.com/736x/f4/e5/ba/f4e5ba22311039662dd253be33bf5f0e.jpg",
+      "https://i.ipeimg.com/736x/f4/e5/ba/f4e5ba22311039662dd253be33bf5f0e.jpg",
   },
   {
     name: "travel",
     image:
-      "https://i.pinimg.com/236x/fa/95/98/fa95986f2c408098531ca7cc78aee3a4.jpg",
+      "https://i.ipeimg.com/236x/fa/95/98/fa95986f2c408098531ca7cc78aee3a4.jpg",
   },
   {
     name: "quotes",
     image:
-      "https://i.pinimg.com/236x/46/7c/17/467c17277badb00b638f8ec4da89a358.jpg",
+      "https://i.ipeimg.com/236x/46/7c/17/467c17277badb00b638f8ec4da89a358.jpg",
   },
   {
     name: "cats",
     image:
-      "https://i.pinimg.com/236x/6c/3c/52/6c3c529e8dadc7cffc4fddedd4caabe1.jpg",
+      "https://i.ipeimg.com/236x/6c/3c/52/6c3c529e8dadc7cffc4fddedd4caabe1.jpg",
   },
   {
     name: "dogs",
     image:
-      "https://i.pinimg.com/236x/1b/c8/30/1bc83077e363db1a394bf6a64b071e9f.jpg",
+      "https://i.ipeimg.com/236x/1b/c8/30/1bc83077e363db1a394bf6a64b071e9f.jpg",
   },
   {
     name: "others",
     image:
-      "https://i.pinimg.com/236x/2e/63/c8/2e63c82dfd49aca8dccf9de3f57e8588.jpg",
+      "https://i.ipeimg.com/236x/2e/63/c8/2e63c82dfd49aca8dccf9de3f57e8588.jpg",
   },
 ];
 
@@ -72,7 +72,7 @@ export function userQuery(id) {
 }
 
 export function searchQuery(searchTerm) {
-  const query = `*[_type=="pin" && title match "${searchTerm}*"|| category match "${searchTerm}*"||about match "${searchTerm}*"]{
+  const query = `*[_type=="ipe" && title match "${searchTerm}*"|| category match "${searchTerm}*"||about match "${searchTerm}*"]{
     _id,
     image,
     destination,
@@ -96,7 +96,7 @@ export function searchQuery(searchTerm) {
   return query;
 }
 
-export const allFeedQuery = `*[_type=='pin']|order(_createdAt desc){
+export const allFeedQuery = `*[_type=='ipe']|order(_createdAt desc){
   _id,
     image,
     destination,
@@ -118,10 +118,10 @@ export const allFeedQuery = `*[_type=='pin']|order(_createdAt desc){
   },
 }`;
 
-export const pinDetailQuery = pinId => {
+export const ipeDetailQuery = ipeId => {
   const query = `*[
-  _type == "pin" &&
-  _id == '${pinId}'
+  _type == "ipe" &&
+  _id == '${ipeId}'
 ][0]{
   about,
   category,
@@ -161,11 +161,11 @@ export const pinDetailQuery = pinId => {
 `;
   return query;
 };
-export const similarPinCategoryQuery = (pinId, pinCategory) => {
+export const similarIpeCategoryQuery = (ipeId, ipeCategory) => {
   const query = `*[
-  _type == 'pin' &&
-  _id != '${pinId}' &&
-  category == '${pinCategory}'
+  _type == 'ipe' &&
+  _id != '${ipeId}' &&
+  category == '${ipeCategory}'
 ]{
    _id,
     image,
@@ -190,8 +190,8 @@ export const similarPinCategoryQuery = (pinId, pinCategory) => {
   return query;
 };
 
-export const userCreatedPinsQuery = userId => {
-  const query = `*[ _type == 'pin' && userid == '${userId}'] | order(_createdAt desc){
+export const userCreatedIpesQuery = userId => {
+  const query = `*[ _type == 'ipe' && userid == '${userId}'] | order(_createdAt desc){
     image,
     _id,
     destination,
@@ -212,8 +212,8 @@ export const userCreatedPinsQuery = userId => {
   }}`;
   return query;
 };
-export const userSavedPinsQuery = userId => {
-  const query = `*[_type == 'pin' && '${userId}' in save[].userid ] | order(_createdAt desc) {
+export const userSavedIpesQuery = userId => {
+  const query = `*[_type == 'ipe' && '${userId}' in save[].userid ] | order(_createdAt desc) {
     image,
     _id,
     destination,
@@ -236,9 +236,9 @@ export const userSavedPinsQuery = userId => {
 };
 export const userActivityQuery = userId => {
   const query = `{
-  "savedCount":count(*[_type == 'pin' && '${userId}' in save[].userid ]),
-    "createdCount":count(*[_type=='pin' && userid=='${userId}']),
-    "savesGotten":*[_type=='pin' && userid=='${userId}' && defined(save)]{
+  "savedCount":count(*[_type == 'ipe' && '${userId}' in save[].userid ]),
+    "createdCount":count(*[_type=='ipe' && userid=='${userId}']),
+    "savesGotten":*[_type=='ipe' && userid=='${userId}' && defined(save)]{
       "size":count(save)         
     },
                   

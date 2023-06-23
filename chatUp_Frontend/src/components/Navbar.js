@@ -47,7 +47,7 @@ function Navbar({ setSearchTerm }) {
           />
         </Link>
         <Link
-          to="/create-pin"
+          to="/create-ipe"
           className="bg-cyan-400 text-white rounded-full w-10 h-10 flex justify-center items-center"
         >
           <IoMdAdd fontSize={20} className="font-black" />

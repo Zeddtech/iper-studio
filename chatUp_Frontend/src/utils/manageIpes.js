@@ -3,8 +3,8 @@ import { Navigate, redirect } from "react-router-dom";
 import { client } from "../sanityConfig";
 import { v4 as uuidv4 } from "uuid";
 
-export function savePin(
-  pinId,
+export function saveIpe(
+  ipeId,
   userId,
   setSavedLength,
   setSavingPost,
@@ -13,7 +13,7 @@ export function savePin(
   console.log("save function called ");
 
   client
-    .patch(pinId)
+    .patch(ipeId)
     .setIfMissing({ save: [] })
     .append("save", [
       {
@@ -37,12 +37,12 @@ export function savePin(
       throw new Error("something went wrong couldn't fetch feed");
     });
 }
-export function deletePin(pinId, setIsDeleted) {
+export function deleteIpe(ipeId, setIsDeleted) {
   client
-    .delete(pinId)
+    .delete(ipeId)
     .then(res => {
-      console.log("pipe deleted", res);
-      if (pinId == res.documentIds[0]) {
+      console.log("Ipe deleted", res);
+      if (ipeId == res.documentIds[0]) {
         setIsDeleted(true);
       }
     })
@@ -50,9 +50,9 @@ export function deletePin(pinId, setIsDeleted) {
       console.error("Delete failed: ", err.message);
     });
 }
-export async function saveComment(userId, pinId, comment) {
+export async function saveComment(userId, ipeId, comment) {
   const res = await client
-    .patch(pinId)
+    .patch(ipeId)
     .setIfMissing({ comments: [] })
     .prepend("comments", [
       {

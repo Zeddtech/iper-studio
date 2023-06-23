@@ -5,15 +5,15 @@ import { AiTwotoneDelete } from "react-icons/ai";
 import { BsFillArrowUpRightCircleFill } from "react-icons/bs";
 import { urlFor } from "../sanityConfig";
 
-import { deletePin, savePin } from "../utils/managePins";
+import { deleteIpe, saveIpe } from "../utils/manageIpes";
 import Alert from "./Alert";
-function Pin({ pin }) {
-  const { image, postedBy, destination, savedBy, _id } = pin;
+function Ipe({ ipe }) {
+  const { image, postedBy, destination, savedBy, _id } = ipe;
   const userData = useRouteLoaderData("root");
   const [postHovered, setPostHovered] = useState(false);
   const [savingPost, setSavingPost] = useState(false);
   const [savedPost, setsavedPost] = useState(
-    pin?.savedBy?.map(item => item?.savedBy?._id)?.includes(userData?._id)
+    ipe?.savedBy?.map(item => item?.savedBy?._id)?.includes(userData?._id)
   );
   const [savedPostLength, setsavedLength] = useState(savedBy?.length);
   const [showAlert, setShowAlert] = useState(false);
@@ -31,12 +31,12 @@ function Pin({ pin }) {
   return (
     <div className="m-2">
       {showAlert && (
-        <Alert message="Pipe saved " duration={2000} closeAlert={closeAlert} />
+        <Alert message="ipe saved " duration={2000} closeAlert={closeAlert} />
       )}
       <div
         onMouseEnter={() => setPostHovered(true)}
         onMouseLeave={() => setPostHovered(false)}
-        onClick={() => navigate(`/pin-detail/${pin._id}`)}
+        onClick={() => navigate(`/ipe-detail/${ipe._id}`)}
         className=" relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out bg-blackOverlay"
       >
         {image && (
@@ -55,12 +55,13 @@ function Pin({ pin }) {
             <div className="flex items-center justify-between">
               <div className="flex gap-2">
                 <a
-                  href={`${image}?dl=`}
+                  href={`${urlFor(image).url()}?dl=`}
                   download
                   onClick={e => {
                     e.stopPropagation();
                   }}
                   className="bg-white w-9 h-9 p-2 rounded-full flex items-center justify-center text-dark text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none"
+                  title="download Ipe"
                 >
                   <MdOutlineDownloadForOffline />
                 </a>
@@ -82,8 +83,8 @@ function Pin({ pin }) {
                     e.stopPropagation();
                     if (!savedPost) {
                       setSavingPost(true);
-                      savePin(
-                        pin._id,
+                      saveIpe(
+                        ipe._id,
                         userData._id,
                         setsavedLength,
                         setSavingPost,
@@ -108,6 +109,9 @@ function Pin({ pin }) {
                   target="_blank"
                   className="bg-white flex items-center gap-1 text-black font-bold py-1 px-2 rounded-full opacity-70 hover:opacity-100 hover:shadow-md text-sm"
                   rel="noreferrer nofollow noopener"
+                  onClick={e => {
+                    e.stopPropagation();
+                  }}
                 >
                   <BsFillArrowUpRightCircleFill />
                   {destination?.slice(8, 17)}...
@@ -120,10 +124,10 @@ function Pin({ pin }) {
                     e.stopPropagation();
                     if (
                       window.confirm(
-                        "do you want to delete pipe, pipes deleted cant be recovered"
+                        "do you want to delete ipe, ipes deleted cant be recovered"
                       )
                     ) {
-                      deletePin(_id, setisDeleted);
+                      deleteIpe(_id, setisDeleted);
                     }
                   }}
                   className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
@@ -153,5 +157,4 @@ function Pin({ pin }) {
   );
 }
 
-export default Pin;
-// 91b68173-a634-4b00-a1bc-a70c963b7825
+export default Ipe;

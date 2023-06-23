@@ -6,7 +6,7 @@ import {schemaTypes} from './schemas'
 
 export default defineConfig({
   name: 'default',
-  title: 'Piper',
+  title: 'iper',
 
   projectId: 'i8wsxnih',
   dataset: 'production',

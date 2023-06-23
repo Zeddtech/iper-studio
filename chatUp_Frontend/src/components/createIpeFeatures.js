@@ -1,28 +1,28 @@
 export const formFields = [
-  { name: "title", type: "text", initialValue: "", label: "Add pipe title" },
+  { name: "title", type: "text", initialValue: "", label: "Add ipe title" },
   {
     name: "about",
     type: "text",
     initialValue: "",
-    label: "About pipe",
+    label: "About ipe",
   },
   {
     name: "destination",
     type: "url",
     initialValue: "",
-    label: "pipe url link",
+    label: "ipe url link",
   },
   {
     name: "imageAsset",
     type: "image",
     initialValue: "",
-    label: "Add Pipe Image",
+    label: "Add ipe Image",
   },
   {
     name: "category",
     type: "text",
     initialValue: "",
-    label: "Add pipe category",
+    label: "Add ipe category",
   },
 ];
 

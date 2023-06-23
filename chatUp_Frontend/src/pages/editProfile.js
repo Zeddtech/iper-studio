@@ -52,6 +52,8 @@ const EditProfile = () => {
     }
   };
   const formFields = createFormFields(userData);
+  console.log("createFormFields rendered ");
+
   return (
     <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">
       <button
@@ -60,7 +62,7 @@ const EditProfile = () => {
       >
         <HiArrowLeft />
       </button>
-      <div className=" flex lg:flex-row flex-col justify-center items-center bg-white md:p-6 p-3 lg:w-4/5  w-full">
+      <div className=" flex lg:flex-row flex-col justify-center items-center bg-white md:p-6 p-3 w-full">
         <div className="flex flex-1 flex-col gap-10 lg:pl-5 mt-10 w-full">
           {formFields.map(({ name, type, label }, i) => {
             if (name === "bio") {

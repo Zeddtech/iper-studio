@@ -3,7 +3,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { ImFacebook, ImSkype, ImTwitter } from "react-icons/im";
-import piper from "../asset/piper.mp4";
+import iper from "../asset/iper.mp4";
 import logo from "../asset/logo.png";
 import axios from "axios";
 import { client } from "../sanityConfig";
@@ -80,7 +80,7 @@ function Login() {
       )}
       <div className="relative w-full h-full">
         <video
-          src={piper}
+          src={iper}
           type="video/mp4"
           loop
           controls={false}
@@ -91,7 +91,7 @@ function Login() {
       </div>
       <div className="absolute flex flex-col justify-center items-center top-0 right-0 left-0 bottom-0 bg-blackOverlay">
         <div className="p-5">
-          <img src={logo} width="200px" alt="piper logo" />
+          <img src={logo} width="200px" alt="iper logo" />
         </div>
         <div className="social_logins shadow-2xl flex flex-col">
           <button className="social_btn google" onClick={login}>

@@ -5,16 +5,16 @@ import {
 } from "react-router-dom";
 import App from "../App";
 import Home from "../pages/Home";
-import Pins from "../pages/Pins";
-import PinDetail from "../pages/PinDetail";
-import { CreatePin, Feed, Search } from "../components";
+import Ipes from "../pages/Ipes";
+import IpeDetail from "../pages/IpeDetail";
+import { CreateIpe, Feed, Search } from "../components";
 import UserProfile from "../pages/UserProfile";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import {
   userLoader,
   feedLoader,
-  pinDetailLoader,
+  ipeDetailLoader,
   userProfileLoader,
   searchLoader,
 } from "../utils/routeLoader";
@@ -32,7 +32,7 @@ const router = createBrowserRouter(
         id="root"
         errorElement={<ServerDown />}
       >
-        <Route element={<Pins />}>
+        <Route element={<Ipes />}>
           <Route index element={<Feed />} loader={feedLoader} id="feed" />
           <Route path="search" element={<Search />} loader={searchLoader} />
           <Route
@@ -42,11 +42,11 @@ const router = createBrowserRouter(
             id="category"
           />
           <Route
-            path="pin-Detail/:PinId"
-            loader={pinDetailLoader}
-            element={<PinDetail />}
+            path="ipe-Detail/:IpeId"
+            loader={ipeDetailLoader}
+            element={<IpeDetail />}
             errorElement={<ServerDown />}
-            id="pindetail"
+            id="ipedetail"
           />
 
           <Route
@@ -55,7 +55,7 @@ const router = createBrowserRouter(
             loader={userProfileLoader}
           />
         </Route>
-        <Route path="create-pin" element={<CreatePin />} />
+        <Route path="create-ipe" element={<CreateIpe />} />
         <Route path="edit-profile" element={<EditProfile />} />
       </Route>
       <Route path="/login" element={<Login />} />

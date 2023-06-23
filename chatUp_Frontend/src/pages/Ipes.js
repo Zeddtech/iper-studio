@@ -2,7 +2,7 @@ import { Outlet, useSearchParams } from "react-router-dom";
 
 import { Navbar } from "../components";
 
-const Pins = () => {
+const Ipes = () => {
   const [searchTerm, setSearchTerm] = useSearchParams();
 
   return (
@@ -16,4 +16,4 @@ const Pins = () => {
     </div>
   );
 };
-export default Pins;
+export default Ipes;
