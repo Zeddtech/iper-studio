@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import React from "react";
 
 function NotFound() {
-  console.log("NotFound rendered ");
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
       <div className="max-w-lg text-center">

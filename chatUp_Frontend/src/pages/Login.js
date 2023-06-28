@@ -11,12 +11,11 @@ import { getCountry } from "../utils/countries";
 import Spinner from "../components/Spinner";
 
 function Login() {
-  console.log("Login rendered " )
   const [userToken, setuserToken] = useState("");
 
   const navigate = useNavigate();
   localStorage.setItem("user_id", "6eb2085b-be6b-42ee-8c1a-0d5d2e26c021");
-  // console.log(getCountry());
+
   useEffect(() => {
     if (userToken) {
       axios
@@ -30,7 +29,6 @@ function Login() {
           }
         )
         .then(res => {
-          console.log(res.data);
           const {
             id,
             email,
@@ -51,7 +49,6 @@ function Login() {
               location: getCountry(),
             })
             .then(res => {
-              console.log(res);
               //   setUser_id(res._id);
               localStorage.setItem("user_id", res._id);
 
@@ -66,7 +63,6 @@ function Login() {
 
   const login = useGoogleLogin({
     onSuccess: res => {
-      console.log(res);
       setuserToken(res.access_token);
     },
     onError: error => console.log("Login Failed:", error),

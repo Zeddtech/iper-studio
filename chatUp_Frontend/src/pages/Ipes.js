@@ -3,7 +3,6 @@ import { Outlet, useSearchParams } from "react-router-dom";
 import { Navbar } from "../components";
 
 const Ipes = () => {
-  console.log("Ipes rendered ");
   const [searchTerm, setSearchTerm] = useSearchParams();
 
   return (

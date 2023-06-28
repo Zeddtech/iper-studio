@@ -10,9 +10,8 @@ import {
 import { HiArrowLeft } from "react-icons/hi";
 
 const EditProfile = () => {
-  console.log("edit profile rendered ");
   const userData = useRouteLoaderData("root");
-  console.log(userData);
+
   const [ipeFields, setIpeFields] = useState(() => initialState(userData));
   const [editingProfile, seteditingProfile] = useState(false);
   const navigate = useNavigate();
@@ -22,7 +21,6 @@ const EditProfile = () => {
       [name]: value,
     });
   };
-  console.log(ipeFields);
 
   const editProfile = () => {
     seteditingProfile(true);
@@ -31,8 +29,6 @@ const EditProfile = () => {
     if (!initialState) {
       seteditingProfile(false);
     } else {
-      console.log("edit profile ran ");
-
       client
         .patch(userData._id)
         .set({
@@ -52,7 +48,6 @@ const EditProfile = () => {
     }
   };
   const formFields = createFormFields(userData);
-  console.log("createFormFields rendered ");
 
   return (
     <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">

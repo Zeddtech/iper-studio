@@ -6,8 +6,6 @@ import { imageFormat } from "./createIpeFeatures";
 import { client } from "../sanityConfig";
 
 function IpeImageUpload({ userData, handleChange, ipeFields }) {
-  console.log("IpeImageUpload rendered ");
-
   const [loading, setLoading] = useState(false);
   const [wrongImageType, setWrongImageType] = useState(false);
 
@@ -26,9 +24,7 @@ function IpeImageUpload({ userData, handleChange, ipeFields }) {
           handleChange("imageAsset", document);
           setLoading(false);
         })
-        .catch(error => {
-          console.log("Upload failed:", error.message);
-        });
+        .catch(error => {});
     } else {
       setLoading(false);
       setWrongImageType(true);

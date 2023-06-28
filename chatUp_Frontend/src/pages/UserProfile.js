@@ -18,7 +18,6 @@ const notActiveBtnStyles =
   "bg-primary  text-black font-bold p-2  w-20 outline-none hover:bg-gray-200 transition duration-300 rounded-t";
 
 function UserProfile() {
-  console.log("UserProfile rendered ");
   const { user, userCreatedIpes, userSavedIpes, userActivity } =
     useLoaderData();
   const loginuser = useRouteLoaderData("root");
@@ -186,7 +185,6 @@ function UserProfile() {
 }
 
 export function Tabs({ userCreatedIpes, userSavedIpes }) {
-  console.log("Tabs rendered ");
   const [activeBtn, setActiveBtn] = useState("created");
 
   return (
@@ -223,11 +221,10 @@ export function Tabs({ userCreatedIpes, userSavedIpes }) {
 }
 
 export function TabButton({ activeBtn, setActiveBtn }) {
-  console.log("TabButton rendered ");
   const Created = useRef(null);
   const Saved = useRef(null);
   const [tabUnderlineLeft, setTabUnderlineLeft] = useState();
-  console.log(Created?.current?.offsetLeft);
+
   useEffect(() => {
     activeBtn == "created"
       ? setTabUnderlineLeft(Created?.current?.offsetLeft)

@@ -7,7 +7,6 @@ import { formFields, initalState } from "../components/createIpeFeatures";
 import IpeImageUpload from "../components/IpeImageUpload";
 
 const CreateIpe = () => {
-  console.log("create ipe rendered ");
   const [ipeFields, setIpeFields] = useState(initalState);
   const [creatingIpe, setCreatingIpe] = useState(false);
   const [incompleteFields, setIncompleteFields] = useState();
@@ -24,7 +23,7 @@ const CreateIpe = () => {
   const createIpe = () => {
     setCreatingIpe(true);
     const { title, about, destination, imageAsset, category } = ipeFields;
-    console.log(ipeFields);
+
     if (Object.keys(ipeFields).some(key => ipeFields[key] === "")) {
       setCreatingIpe(false);
       setIncompleteFields(true);
@@ -33,7 +32,6 @@ const CreateIpe = () => {
         clearTimeout(errortimeOut);
       }, 3000);
     } else {
-      console.log("create ipe ran ");
       const doc = {
         _type: "ipe",
         title,

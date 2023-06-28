@@ -18,7 +18,6 @@ const isActiveStyle =
   "flex items-center px-5 gap-3 font-extrabold  transition-all duration-200 ease-in-out capitalize";
 
 function Sidebar({ closeToggle }) {
-  console.log("Sidebar rendered ");
   function handleCloseSidebar() {
     if (closeToggle) closeToggle(false);
   }

@@ -41,7 +41,7 @@
 //           email: "sop1%&^",
 //           _id: "jshg",
 //         })
-//         .then(res => console.log(res));
+//         .then(res =>
 
 //       // navigate(from, { replace: true });
 //     } catch (err) {

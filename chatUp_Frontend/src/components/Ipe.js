@@ -8,8 +8,6 @@ import { urlFor } from "../sanityConfig";
 import { deleteIpe, saveIpe } from "../utils/manageIpes";
 import Alert from "./Alert";
 function Ipe({ ipe }) {
-  console.log(`Ipe rendered ${ipe?._id?.slice(-4)}`);
-
   const { image, postedBy, destination, savedBy, _id } = ipe;
   const userData = useRouteLoaderData("root");
   const [postHovered, setPostHovered] = useState(false);
@@ -24,7 +22,6 @@ function Ipe({ ipe }) {
   const navigate = useNavigate();
 
   const closeAlert = () => {
-    // console.log("Alert closed!");
     setShowAlert(false);
   };
   if (isDeleted) {
@@ -95,8 +92,6 @@ function Ipe({ ipe }) {
                         setSavingPost,
                         setsavedPost
                       );
-
-                      // console.log(res);
                     }
                   }}
                   type="button"

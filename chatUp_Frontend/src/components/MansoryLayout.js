@@ -11,8 +11,6 @@ const breakpointColumnsObj = {
 };
 
 const MasonryLayout = ({ ipes, bp }) => {
-  console.log("MasonryLayout rendered ");
-  console.log(ipes);
   return (
     <Masonry className="flex " breakpointCols={bp || breakpointColumnsObj}>
       {ipes?.map((ipe, i) => (

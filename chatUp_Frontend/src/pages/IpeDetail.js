@@ -18,7 +18,6 @@ import AdsBox from "../components/AdsBox";
 import { v4 as uuidv4 } from "uuid";
 
 function ipeDetail() {
-  console.log("ipeDetail rendered ");
   const { ipeDetail, similarIpes } = useLoaderData();
   const user = useRouteLoaderData("root");
   const commentRef = useRef(null);
@@ -143,8 +142,6 @@ function ipeDetail() {
                           setSavingPost,
                           sethasSavedPost
                         );
-
-                        // console.log(res);
                       }
                     }}
                     type="button"
@@ -264,7 +261,6 @@ const SimilarIpes = memo(function SimilarIpes({ similarIpes }) {
         }
       >
         {resolvedSimilarIpe => {
-          console.log(resolvedSimilarIpe);
           return (
             <div className="bg-white px-3 xl:px-4 flex-1 lg:border rounded-t-xl flex flex-col min-w-[250px] border-b-0">
               <h2 className="text-center font-bold text-xl pt-8 pb-4 ">

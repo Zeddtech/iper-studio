@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 function Alert({ message, duration, closeAlert }) {
-  console.log("Alert rendered ");
-
   const [showAlert, setShowAlert] = useState(true);
 
   useEffect(() => {

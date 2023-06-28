@@ -2,7 +2,6 @@ import React from "react";
 import { Circles } from "react-loader-spinner";
 
 function Spinner({ message }) {
-  console.log("Spinner rendered ");
   return (
     <div className="flex flex-col justify-center items-center w-full h-full">
       <Circles

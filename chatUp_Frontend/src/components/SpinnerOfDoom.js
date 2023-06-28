@@ -1,8 +1,6 @@
 import logo from "../asset/logo.png";
 
 function SpinnerOfDoom() {
-  console.log("SpinnerOfDoom rendered ");
-
   return (
     <section className="bg-white-900 relative place-items-center grid h-screen w-screen gap-4">
       {/* <!--   ITEM 1 --> */}
@@ -21,7 +19,6 @@ function SpinnerOfDoom() {
   );
 }
 export function Loader() {
-  console.log("Loader rendered ");
   return (
     <section className="bg-white-900 relative place-items-center grid flex-1 gap-4">
       {/* <!--   ITEM 1 --> */}

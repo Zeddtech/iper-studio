@@ -10,8 +10,6 @@ export function saveIpe(
   setSavingPost,
   setsavedPost
 ) {
-  console.log("save function called ");
-
   client
     .patch(ipeId)
     .setIfMissing({ save: [] })
@@ -45,7 +43,6 @@ export function deleteIpe(ipeId, setIsDeleted) {
   client
     .delete(ipeId)
     .then(res => {
-      console.log("Ipe deleted", res);
       if (ipeId == res.documentIds[0]) {
         setIsDeleted(true);
       }
@@ -55,7 +52,6 @@ export function deleteIpe(ipeId, setIsDeleted) {
     });
 }
 export async function saveComment(userId, ipeId, comment) {
-  console.log("saveComment rendered ");
   const res = await client
     .patch(ipeId)
     .setIfMissing({ comments: [] })
@@ -72,6 +68,5 @@ export async function saveComment(userId, ipeId, comment) {
     ])
     .commit();
 
-  console.log(res);
   return res;
 }

@@ -3,10 +3,9 @@ import { useLoaderData, useOutletContext } from "react-router-dom";
 import MasonryLayout from "./MansoryLayout";
 
 function Search() {
-  console.log("Search rendered ");
   const ipes = useLoaderData();
   const [searchTerm] = useOutletContext();
-  console.log(searchTerm.get("q"));
+
   if (!searchTerm.get("q") || searchTerm.get("q").length < 3)
     return (
       <div className="h-[50vh] mt-10">

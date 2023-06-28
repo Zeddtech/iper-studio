@@ -5,7 +5,6 @@ import logo from "../asset/logo.png";
 // import { useGcontex } from "../hooks/ContextProvider";
 import Sidebar from "./Sidebar";
 function MobileSideBar() {
-  console.log("mobilesidebar ran");
   //   sidebar state
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const userData = useRouteLoaderData("root");
