@@ -1,97 +1,70 @@
-# Iper Studio
+# Getting Started with Create React App
 
-Welcome to the Art and Pictures Appraisal repository! This application allows users to sign in, upload pictures or artworks, and receive appraisals from other users in the community. It's a great platform for artists and art enthusiasts to connect and get feedback on their creations.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Built With
+## Available Scripts
 
-- HTML,
-- CSS,
-- React
-- Sanity (Headless CMS)
+In the project directory, you can run:
 
-The backend for iPer is powered by Sanity.io. Sanity.io is a headless CMS that provides a flexible and customizable content management system for modern applications.
+### `npm start`
 
-# Getting Started
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-These instructions will help you set up a local development environment to run the Art and Pictures Appraisal application.
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-## Prerequisites
+### `npm test`
 
-To run this application, you need to have the following installed on your system:
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Node.js
-npm (Node Package Manager)
-sanity
-sanity-cli
+### `npm run build`
 
-## Local Installation
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-1. `git clone https://github.com/detrinity27/iper-studio.git`
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-2. Navigate to the project Front end directory: `cd Iper_Frontend`
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-3. Install the dependencies: `npm install`
+### `npm run eject`
 
-4. Navigate to the project Back End directory: `cd Iper_Backend`
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-- for sanity setup :
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-  - [Read “getting started” in the docs](https://www.sanity.io/docs/introduction/getting-started?utm_source=readme)
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-  - Check out one of the example frontends: [React](https://github.com/sanity-io/example-frontend-next-js)
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-5. After setup, open terminal and run `npm run dev` in the back-end directory
+## Learn More
 
-6. navigate to the front end directory in the terminal and run `npm start`
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-7. The application should now be running on http://localhost:3000. enjoy!!!!
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-# Usage
+### Code Splitting
 
-- visit [https://iperstudio.netlify.app/](https://iperstudio.netlify.app/)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-## User Registration
+### Analyzing the Bundle Size
 
-- Access the iPer website at https://iperstudio.netlify.app/.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-- sign up / sign in with your google account
+### Making a Progressive Web App
 
-## Uploading Artworks
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-- After logging in, you will be redirected to the dashboard.
+### Advanced Configuration
 
-- Click on the "+" button at the top right coner to start the artwork (ipe) upload process.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-- Provide the necessary details for your artwork (ipe), such as title, description, url to your other artwork, category and upload an image file.
+### Deployment
 
-- Click "save" to upload the artwork (ipe).
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-## Appraisal
+### `npm run build` fails to minify
 
-- Browse the available artworks (ipes) on the dashboard.
-
-- Click on an artwork to view its details.
-
-- Leave an appraisal or feedback by providing comments .
-
-- Click "comment" to post your appraisal.
-
-## Authors
-
-👤 **Agwunobi sopulu**
-
-- Github: [@detrinity27](https://github.com/detrinity27)
-- Twitter: [@Zed](https://twitter.com/SO_NWA)
-- Linkedin: [agwunobi sopulu](https://www.linkedin.com/in/agwunobi-sopulu-691875216)
-
-## License
-
-This project is licensed under the MIT License. Feel free to use and modify the code according to your needs.
-
-## 🤝 Contributing
-
-We welcome contributions to the iPer studio! If you have any ideas, improvements, or bug fixes, feel free to submit a pull request.
-
-## Show your support
-
-Give a ⭐️ if you like this project!
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
