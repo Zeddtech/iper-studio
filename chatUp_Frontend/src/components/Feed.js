@@ -2,6 +2,8 @@ import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import MasonryLayout from "./MansoryLayout";
 
 function Feed() {
+  console.log("Feed rendered ");
+
   const ipes = useLoaderData();
   const navigate = useNavigate();
   const { categoryId } = useParams();

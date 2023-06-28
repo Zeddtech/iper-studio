@@ -18,19 +18,11 @@ const notActiveBtnStyles =
   "bg-primary  text-black font-bold p-2  w-20 outline-none hover:bg-gray-200 transition duration-300 rounded-t";
 
 function UserProfile() {
+  console.log("UserProfile rendered ");
   const { user, userCreatedIpes, userSavedIpes, userActivity } =
     useLoaderData();
   const loginuser = useRouteLoaderData("root");
-  const [activeBtn, setActiveBtn] = useState("created");
-  const Created = useRef();
-  const Saved = useRef();
-  const [tabUnderlineLeft, setTabUnderlineLeft] = useState();
 
-  useEffect(() => {
-    activeBtn == "created"
-      ? setTabUnderlineLeft(Created?.current?.offsetLeft)
-      : setTabUnderlineLeft(Saved?.current?.offsetLeft);
-  }, [activeBtn]);
   return (
     <div className="relative pb-2 h-full justify-center items-center bg-white">
       <div className="flex flex-col pb-5">
@@ -181,68 +173,95 @@ function UserProfile() {
                 </Suspense>
               </div>
 
-              <div className="text-center mb-7 flex  border-b justify-around relative gap-3">
-                <button
-                  type="button"
-                  ref={Created}
-                  onClick={() => {
-                    setActiveBtn("created");
-                  }}
-                  className={notActiveBtnStyles}
-                >
-                  Created
-                </button>
-                <button
-                  type="button"
-                  ref={Saved}
-                  onClick={() => {
-                    setActiveBtn("saved");
-                  }}
-                  className={notActiveBtnStyles}
-                >
-                  Saved
-                </button>
-                <span
-                  className="absolute w-20 h-1 bottom-0 block transition-all duration-300 bg-cyan-400"
-                  style={{
-                    left: tabUnderlineLeft,
-                  }}
-                ></span>
-              </div>
-
-              <div className="px-2">
-                <Suspense
-                  fallback={<Spinner message={"loading similar Ipes"} />}
-                >
-                  <Await
-                    resolve={
-                      activeBtn == "created" ? userCreatedIpes : userSavedIpes
-                    }
-                  >
-                    {ipes => {
-                      return ipes?.length === 0 ? (
-                        <div className="flex justify-center font-bold items-center w-full text-2xl mt-2 h-64 capitalize">
-                          No {activeBtn} Ipe Found!
-                        </div>
-                      ) : (
-                        <MasonryLayout
-                          ipes={ipes}
-                          bp={{
-                            default: 4,
-                            2000: 3,
-                            1000: 2,
-                            500: 1,
-                          }}
-                        />
-                      );
-                    }}
-                  </Await>
-                </Suspense>
-              </div>
+              <Tabs
+                userCreatedIpes={userCreatedIpes}
+                userSavedIpes={userSavedIpes}
+              />
             </div>
           )}
         </div>
       </div>
+    </div>
+  );
+}
+
+export function Tabs({ userCreatedIpes, userSavedIpes }) {
+  console.log("Tabs rendered ");
+  const [activeBtn, setActiveBtn] = useState("created");
+
+  return (
+    <>
+      <TabButton activeBtn={activeBtn} setActiveBtn={setActiveBtn} />
+
+      <div className="px-2">
+        <Suspense fallback={<Spinner message={"loading similar Ipes"} />}>
+          <Await
+            resolve={activeBtn == "created" ? userCreatedIpes : userSavedIpes}
+          >
+            {ipes => {
+              return ipes?.length === 0 ? (
+                <div className="flex justify-center font-bold items-center w-full text-2xl mt-2 h-64 capitalize">
+                  No {activeBtn} Ipe Found!
+                </div>
+              ) : (
+                <MasonryLayout
+                  ipes={ipes}
+                  bp={{
+                    default: 4,
+                    2000: 3,
+                    1000: 2,
+                    500: 1,
+                  }}
+                />
+              );
+            }}
+          </Await>
+        </Suspense>
+      </div>
+    </>
+  );
+}
+
+export function TabButton({ activeBtn, setActiveBtn }) {
+  console.log("TabButton rendered ");
+  const Created = useRef(null);
+  const Saved = useRef(null);
+  const [tabUnderlineLeft, setTabUnderlineLeft] = useState();
+  console.log(Created?.current?.offsetLeft);
+  useEffect(() => {
+    activeBtn == "created"
+      ? setTabUnderlineLeft(Created?.current?.offsetLeft)
+      : setTabUnderlineLeft(Saved?.current?.offsetLeft);
+  }, [activeBtn]);
+
+  return (
+    <div className="text-center mb-7 flex  border-b justify-around relative gap-3">
+      <button
+        type="button"
+        ref={Created}
+        onClick={() => {
+          setActiveBtn("created");
+        }}
+        className={notActiveBtnStyles}
+      >
+        Created
+      </button>
+      <button
+        type="button"
+        ref={Saved}
+        onClick={() => {
+          setActiveBtn("saved");
+        }}
+        className={notActiveBtnStyles}
+      >
+        Saved
+      </button>
+      <span
+        className="absolute w-20 h-1 bottom-0 block transition-all duration-300 bg-cyan-400"
+        style={{
+          left: tabUnderlineLeft,
+        }}
+      ></span>
     </div>
   );
 }

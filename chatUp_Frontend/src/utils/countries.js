@@ -428,7 +428,7 @@ const countries = {
 export function getCountry() {
   const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const tzArr = userTimeZone.split("/");
-  const userRegion = tzArr[0];
+  // const userRegion = tzArr[0];
   const userCity = tzArr[tzArr.length - 1];
   const userCountry = countries[userCity];
   return userCountry;

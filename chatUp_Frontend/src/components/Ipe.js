@@ -8,6 +8,8 @@ import { urlFor } from "../sanityConfig";
 import { deleteIpe, saveIpe } from "../utils/manageIpes";
 import Alert from "./Alert";
 function Ipe({ ipe }) {
+  console.log(`Ipe rendered ${ipe?._id?.slice(-4)}`);
+
   const { image, postedBy, destination, savedBy, _id } = ipe;
   const userData = useRouteLoaderData("root");
   const [postHovered, setPostHovered] = useState(false);
@@ -15,7 +17,7 @@ function Ipe({ ipe }) {
   const [savedPost, setsavedPost] = useState(
     ipe?.savedBy?.map(item => item?.savedBy?._id)?.includes(userData?._id)
   );
-  const [savedPostLength, setsavedLength] = useState(savedBy?.length);
+  const [savedPostLength, setsavedLength] = useState(savedBy?.length || 0);
   const [showAlert, setShowAlert] = useState(false);
   const [isDeleted, setisDeleted] = useState(false);
 
@@ -73,9 +75,12 @@ function Ipe({ ipe }) {
                     setShowAlert(true);
                   }}
                   type="button"
-                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-2 py-1 text-sm rounded-3xl hover:shadow-md outline-none"
+                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold pe-2 py-1 text-sm rounded-3xl hover:shadow-md outline-none"
                 >
-                  {savedPostLength} Saved
+                  <span className="bg-white rounded-full px-2 py-1 mr-[2px] text-black border-2 border-red-500 outline-none">
+                    {savedPostLength}
+                  </span>
+                  Saved
                 </button>
               ) : (
                 <button
@@ -95,10 +100,13 @@ function Ipe({ ipe }) {
                     }
                   }}
                   type="button"
-                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-2 py-1 text-sm rounded-3xl hover:shadow-md outline-none"
+                  className="bg-white opacity-70 hover:opacity-100 text-red-500 font-bold pe-2 py-1 text-sm rounded-3xl hover:shadow-md outline-none"
                   disabled={savingPost}
                 >
-                  {savedPostLength} {savingPost ? "Saving" : "Save"}
+                  <span className="bg-white rounded-full px-2 py-1 mr-[2px] text-black border-2 border-red-500 outline-none">
+                    {savedPostLength}
+                  </span>
+                  {savingPost ? "Saving" : "Save"}
                 </button>
               )}
             </div>

@@ -34,7 +34,11 @@ export function saveIpe(
       return res;
     })
     .catch(error => {
-      throw new Error("something went wrong couldn't fetch feed");
+      setSavingPost(false);
+      setsavedPost(false);
+      throw new Error(
+        `something went wrong couldn't fetch feed ${JSON.stringify(error)}`
+      );
     });
 }
 export function deleteIpe(ipeId, setIsDeleted) {
@@ -51,6 +55,7 @@ export function deleteIpe(ipeId, setIsDeleted) {
     });
 }
 export async function saveComment(userId, ipeId, comment) {
+  console.log("saveComment rendered ");
   const res = await client
     .patch(ipeId)
     .setIfMissing({ comments: [] })

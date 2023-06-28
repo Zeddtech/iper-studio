@@ -73,9 +73,18 @@ module.exports = {
             transform: "translateZ(160px)",
           },
         },
+        appear: {
+          "0%": {
+            opacity: 0,
+          },
+          "100%": {
+            opacity: 1,
+          },
+        },
       },
       animation: {
         "slide-in": "slide-in 0.5s ease-out",
+        Appear: "appear 0.5s ease-in-out forwards",
         "slide-fwd":
           " slide-fwd 0.45s cubic-bezier(0.250, 0.460, 0.450, 0.940) both",
       },

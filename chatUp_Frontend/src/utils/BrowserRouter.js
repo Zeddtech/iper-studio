@@ -10,7 +10,7 @@ import IpeDetail from "../pages/IpeDetail";
 import { CreateIpe, Feed, Search } from "../components";
 import UserProfile from "../pages/UserProfile";
 import Login from "../pages/Login";
-import Register from "../pages/Register";
+// import Register from "../pages/Register";
 import {
   userLoader,
   feedLoader,
@@ -59,7 +59,7 @@ const router = createBrowserRouter(
         <Route path="edit-profile" element={<EditProfile />} />
       </Route>
       <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      {/* <Route path="/register" element={<Register />} /> */}
       <Route path="*" element={<NotFound />} />
     </Route>
   )

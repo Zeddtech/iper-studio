@@ -1,9 +1,14 @@
 import React, { useMemo } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  useNavigate,
+  useRouteLoaderData,
+} from "react-router-dom";
 import logo from "../asset/logo.png";
 import { HiHome } from "react-icons/hi";
 import { IoIosArrowForward } from "react-icons/io";
-import { useGcontex } from "../hooks/ContextProvider";
+// import { useGcontex } from "../hooks/ContextProvider";
 import { categories } from "../utils/GROQqueries";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { googleLogout } from "@react-oauth/google";
@@ -13,11 +18,13 @@ const isActiveStyle =
   "flex items-center px-5 gap-3 font-extrabold  transition-all duration-200 ease-in-out capitalize";
 
 function Sidebar({ closeToggle }) {
+  console.log("Sidebar rendered ");
   function handleCloseSidebar() {
     if (closeToggle) closeToggle(false);
   }
   const navigate = useNavigate();
-  const { userData } = useGcontex();
+  const userData = useRouteLoaderData("root");
+
   const categoriesLink = useMemo(() =>
     categories.slice(0, categories.length - 1).map(category => (
       <NavLink

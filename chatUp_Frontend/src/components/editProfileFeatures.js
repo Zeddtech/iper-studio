@@ -1,4 +1,5 @@
 export function createFormFields(user) {
+  console.log("createFormFields rendered ");
   return [
     {
       name: "bio",
@@ -40,8 +41,11 @@ export function createFormFields(user) {
   ];
 }
 
-export const initialState = user =>
-  createFormFields(user).reduce(
+export const initialState = user => {
+  console.log("initialState rendered ");
+
+  return createFormFields(user).reduce(
     (acc, next) => ({ ...acc, [next.name]: next.initialValue }),
     {}
   );
+};

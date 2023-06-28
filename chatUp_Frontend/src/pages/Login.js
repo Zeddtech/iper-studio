@@ -11,6 +11,7 @@ import { getCountry } from "../utils/countries";
 import Spinner from "../components/Spinner";
 
 function Login() {
+  console.log("Login rendered " )
   const [userToken, setuserToken] = useState("");
 
   const navigate = useNavigate();

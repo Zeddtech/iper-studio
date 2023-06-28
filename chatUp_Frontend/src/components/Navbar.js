@@ -1,12 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import { IoMdAdd } from "react-icons/io";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useGcontex } from "../hooks/ContextProvider";
+import { Link, useLocation, useNavigate, useRouteLoaderData } from "react-router-dom";
+// import { useGcontex } from "../hooks/ContextProvider";
 import { HiArrowLeft } from "react-icons/hi";
 
 function Navbar({ setSearchTerm }) {
+  console.log("Navbar rendered ");
   const navigate = useNavigate();
-  const { userData } = useGcontex();
+    const userData = useRouteLoaderData("root");
+
   const location = useLocation();
   const inputref = useRef();
   useEffect(() => {

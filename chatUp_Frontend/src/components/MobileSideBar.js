@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { HiMenu } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, useRouteLoaderData } from "react-router-dom";
 import logo from "../asset/logo.png";
-import { useGcontex } from "../hooks/ContextProvider";
+// import { useGcontex } from "../hooks/ContextProvider";
 import Sidebar from "./Sidebar";
 function MobileSideBar() {
+  console.log("mobilesidebar ran");
   //   sidebar state
   const [toggleSidebar, setToggleSidebar] = useState(false);
-  const { userData } = useGcontex();
+  const userData = useRouteLoaderData("root");
   return (
     <>
       {toggleSidebar && (

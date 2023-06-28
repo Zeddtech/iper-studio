@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useState, useRef, memo } from "react";
 import { MdDownloadForOffline } from "react-icons/md";
 import {
   Await,
@@ -15,41 +15,48 @@ import { saveComment, saveIpe } from "../utils/manageIpes";
 import { AiOutlineLink } from "react-icons/ai";
 import format from "date-fns/format";
 import AdsBox from "../components/AdsBox";
+import { v4 as uuidv4 } from "uuid";
 
 function ipeDetail() {
+  console.log("ipeDetail rendered ");
   const { ipeDetail, similarIpes } = useLoaderData();
-
   const user = useRouteLoaderData("root");
+  const commentRef = useRef(null);
+  const addCommentBtnRef = useRef(null);
+
   const [hasSavedPost, sethasSavedPost] = useState(() =>
     ipeDetail?.savedBy?.map(item => item?.savedBy?._id)?.includes(user?._id)
   );
   const [savingPost, setSavingPost] = useState(false);
   const [savedCount, setSavedCount] = useState(ipeDetail?.savedBy?.length);
-  const [comment, setComment] = useState("");
-  const [addingComment, setAddingComment] = useState(false);
   const [allComments, setAllComments] = useState(ipeDetail?.comments || []);
   function addComment() {
-    if (!addingComment) {
-      setAddingComment(true);
-      saveComment(user._id, ipeDetail._id, comment).then(() => {
-        setAllComments(prev => [
-          {
-            _key: comment,
-            comment,
-            date: new Date().toISOString(),
-            postedBy: {
-              firstName: user.firstName,
-              lastName: user.lastName,
-              _id: user._id,
-              image: user.image,
-            },
-          },
-          ...prev,
-        ]);
-        setAddingComment(false);
-        setComment("");
-      });
+    let comment = commentRef.current.value.trim();
+    if (comment == "") {
+      return;
     }
+    addCommentBtnRef.current.disabled = true;
+    addCommentBtnRef.current.textContent = "adding comment ...";
+
+    saveComment(user._id, ipeDetail._id, comment).then(() => {
+      setAllComments(prev => [
+        {
+          _key: uuidv4(),
+          comment,
+          date: new Date().toISOString(),
+          postedBy: {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            _id: user._id,
+            image: user.image,
+          },
+        },
+        ...prev,
+      ]);
+      addCommentBtnRef.current.disabled = false;
+      addCommentBtnRef.current.textContent = "comment";
+      commentRef.current.value = "";
+    });
   }
   const date = new Date(ipeDetail._createdAt);
   return (
@@ -175,16 +182,15 @@ function ipeDetail() {
                 className=" col-span-3 flex-1 outline-none border-0  tracking-wide	 "
                 type="text"
                 placeholder="Add a comment"
-                value={comment}
-                onChange={e => setComment(e.target.value)}
+                ref={commentRef}
               />
               <button
                 type="button"
                 className="bg-cyan-400 text-white rounded-full px-2 py-1 font-semibold outline-none hover:bg-cyan-500 transition col-span-2 text-[13px]"
                 onClick={addComment}
-                disabled={!comment}
+                ref={addCommentBtnRef}
               >
-                {addingComment ? "adding comment..." : "Comment"}
+                comment
               </button>
             </div>
           </div>
@@ -241,51 +247,59 @@ function ipeDetail() {
         </div>
       )}
 
-      <Suspense fallback={<Spinner message={"loading similar Ipes"} />}>
-        <Await
-          resolve={similarIpes}
-          errorElement={
-            <div className="p-5 pb-20 text-center text-slate-600 font-semibold min-w-[250px]">
-              Could not load similar Ipes 😬
-            </div>
-          }
-        >
-          {resolvedSimilarIpe => {
-            return (
-              <div className="bg-white px-3 xl:px-4 flex-1 lg:border rounded-t-xl flex flex-col min-w-[250px] border-b-0">
-                <h2 className="text-center font-bold text-xl pt-8 pb-4 ">
-                  More like this
-                </h2>
-                {resolvedSimilarIpe.length < 1 ? (
-                  <div className=" my-10 text-center text-slate-500 w-full font-extrabold text-lg">
-                    No similar post found
-                  </div>
-                ) : (
-                  <MasonryLayout
-                    Ipes={resolvedSimilarIpe}
-                    bp={{
-                      default: 4,
-                      3000: 2,
-                      1300: 1,
-                      1023: 3,
-                      1000: 2,
-                      500: 1,
-                    }}
-                  />
-                )}
-
-                <div className="hidden lg:flex flex-col flex-1 gap-12 pb-4 mt-20 ">
-                  <AdsBox />
-                  <AdsBox />
-                  <AdsBox />
-                  <AdsBox />
-                </div>
-              </div>
-            );
-          }}
-        </Await>
-      </Suspense>
+      <SimilarIpes similarIpes={similarIpes} />
     </div>
   );
 }
+
+const SimilarIpes = memo(function SimilarIpes({ similarIpes }) {
+  return (
+    <Suspense fallback={<Spinner message={"loading similar Ipes"} />}>
+      <Await
+        resolve={similarIpes}
+        errorElement={
+          <div className="p-5 pb-20 text-center text-slate-600 font-semibold min-w-[250px]">
+            Could not load similar Ipes 😬
+          </div>
+        }
+      >
+        {resolvedSimilarIpe => {
+          console.log(resolvedSimilarIpe);
+          return (
+            <div className="bg-white px-3 xl:px-4 flex-1 lg:border rounded-t-xl flex flex-col min-w-[250px] border-b-0">
+              <h2 className="text-center font-bold text-xl pt-8 pb-4 ">
+                More like this
+              </h2>
+              {resolvedSimilarIpe.length < 1 ? (
+                <div className=" my-10 text-center text-slate-500 w-full font-extrabold text-lg">
+                  No similar post found
+                </div>
+              ) : (
+                <MasonryLayout
+                  ipes={resolvedSimilarIpe}
+                  bp={{
+                    default: 4,
+                    3000: 2,
+                    1300: 1,
+                    1023: 3,
+                    1000: 2,
+                    500: 1,
+                  }}
+                />
+              )}
+
+              <div className="hidden lg:flex flex-col flex-1 gap-12 pb-4 mt-20 ">
+                <AdsBox />
+                <AdsBox />
+                <AdsBox />
+                <AdsBox />
+              </div>
+            </div>
+          );
+        }}
+      </Await>
+    </Suspense>
+  );
+});
+
 export default ipeDetail;
