@@ -1,4 +1,4 @@
-## Iper Studio
+# Iper Studio
 
 Welcome to the Art and Pictures Appraisal repository! This application allows users to sign in, upload pictures or artworks, and receive appraisals from other users in the community. It's a great platform for artists and art enthusiasts to connect and get feedback on their creations.
 
@@ -11,7 +11,7 @@ Welcome to the Art and Pictures Appraisal repository! This application allows us
 
 The backend for iPer is powered by Sanity.io. Sanity.io is a headless CMS that provides a flexible and customizable content management system for modern applications.
 
-## Getting Started
+# Getting Started
 
 These instructions will help you set up a local development environment to run the Art and Pictures Appraisal application.
 
@@ -30,27 +30,30 @@ sanity-cli
 
 2. Navigate to the project Front end directory: cd chatUp_Frontend
 
-3. Install the dependencies: npm install
+3. Install the dependencies: `npm install`
 
-4. Navigate to the project Back End directory: cd chatUp_Backend for setup
+4. Navigate to the project Back End directory: `cd chatUp_Backend`
+   for sanity setup :
 
    - [Read “getting started” in the docs](https://www.sanity.io/docs/introduction/getting-started?utm_source=readme)
 
    - Check out one of the example frontends: [React](https://github.com/sanity-io/example-frontend-next-js)
 
-5. After setup, open terminal and run 'npm run dev' in the back-end directory
+5. After setup, open terminal and run `npm run dev` in the back-end directory
 
-6. navigate to the front end directory in the terminal and run 'npm start'
+6. navigate to the front end directory in the terminal and run `npm start`
 
 7. The application should now be running on http://localhost:3000. enjoy!!!!
 
 # Usage
 
+- visit [https://iperstudio.netlify.app/](https://iperstudio.netlify.app/)
+
 ## User Registration
 
-- Access the iPer website at iperstudio.netlify.app.
+- Access the iPer website at https://iperstudio.netlify.app/.
 
-- signup/sign in with your google account
+- sign up / sign in with your google account
 
 ## Uploading Artworks
 
@@ -71,8 +74,6 @@ sanity-cli
 - Leave an appraisal or feedback by providing comments .
 
 - Click "comment" to post your appraisal.
-
-## [website](https://iperstudio.netlify.app/)
 
 ## Authors
 
