@@ -24,7 +24,9 @@ function IpeImageUpload({ userData, handleChange, ipeFields }) {
           handleChange("imageAsset", document);
           setLoading(false);
         })
-        .catch(error => {});
+        .catch(error => {
+          console.log(error);
+        });
     } else {
       setLoading(false);
       setWrongImageType(true);

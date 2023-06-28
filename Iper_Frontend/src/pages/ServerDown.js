@@ -1,8 +1,8 @@
 import React from "react";
-import { Link, useRouteError } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function ServerDown() {
-  const error = useRouteError();
+  // const error = useRouteError();
 
   return (
     <section className="flex items-center h-full sm:p-16 dark:bg-gray-900 dark:text-gray-100">
