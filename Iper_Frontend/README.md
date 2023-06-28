@@ -28,16 +28,17 @@ sanity-cli
 
 1. `git clone https://github.com/detrinity27/iper-studio.git`
 
-2. Navigate to the project Front end directory: cd chatUp_Frontend
+2. Navigate to the project Front end directory: `cd Iper_Frontend`
 
 3. Install the dependencies: `npm install`
 
-4. Navigate to the project Back End directory: `cd chatUp_Backend`
-   for sanity setup :
+4. Navigate to the project Back End directory: `cd Iper_Backend`
 
-   - [Read “getting started” in the docs](https://www.sanity.io/docs/introduction/getting-started?utm_source=readme)
+- for sanity setup :
 
-   - Check out one of the example frontends: [React](https://github.com/sanity-io/example-frontend-next-js)
+  - [Read “getting started” in the docs](https://www.sanity.io/docs/introduction/getting-started?utm_source=readme)
+
+  - Check out one of the example frontends: [React](https://github.com/sanity-io/example-frontend-next-js)
 
 5. After setup, open terminal and run `npm run dev` in the back-end directory
 
