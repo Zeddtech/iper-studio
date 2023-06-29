@@ -37,7 +37,7 @@ function MobileSideBar() {
         </div>
         {
           <div
-            className={`fixed w-2/4 bg-white h-screen overflow-y-auto shadow-md z-20 ease-in-out duration-300 ${
+            className={`fixed w-fit bg-white h-screen overflow-y-auto shadow-md z-20 ease-in-out duration-300 ${
               toggleSidebar ? "translate-x-0" : "-translate-x-full "
             }`}
           >
