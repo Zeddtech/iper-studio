@@ -14,7 +14,6 @@ function Login() {
   const [userToken, setuserToken] = useState("");
 
   const navigate = useNavigate();
-  localStorage.setItem("user_id", "6eb2085b-be6b-42ee-8c1a-0d5d2e26c021");
 
   useEffect(() => {
     if (userToken) {
