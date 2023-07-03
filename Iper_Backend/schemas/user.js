@@ -73,5 +73,18 @@ export default defineType({
       title: 'Verified Email?',
       type: 'boolean',
     }),
+    defineField({
+      title: 'Role',
+      name: 'role',
+      type: 'string',
+      initialValue: 'user',
+      options: {
+        list: [
+          {title: 'Admin', value: 'admin'},
+          {title: 'Editor', value: 'editor'},
+          {title: 'User', value: 'user'},
+        ],
+      },
+    }),
   ],
 })

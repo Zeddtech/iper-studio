@@ -51,6 +51,11 @@ export function deleteIpe(ipeId, setIsDeleted) {
       console.error("Delete failed: ", err.message);
     });
 }
+export function deleteAllipes() {
+  client.delete({ query: `*[_type == 'ipe']` }).then(() => {
+    console.log("all documents was deleted");
+  });
+}
 export async function saveComment(userId, ipeId, comment) {
   const res = await client
     .patch(ipeId)

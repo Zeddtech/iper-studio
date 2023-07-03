@@ -5,6 +5,7 @@ import { categories } from "../utils/GROQqueries";
 import { client } from "../sanityConfig";
 import { formFields, initalState } from "../components/createIpeFeatures";
 import IpeImageUpload from "../components/IpeImageUpload";
+import { deleteAllipes } from "../utils/manageIpes";
 
 const CreateIpe = () => {
   const [ipeFields, setIpeFields] = useState(initalState);
@@ -56,7 +57,7 @@ const CreateIpe = () => {
       });
     }
   };
-
+  console.log(userData);
   return (
     <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">
       {incompleteFields && (
@@ -142,6 +143,15 @@ const CreateIpe = () => {
           </div>
         </div>
       </div>
+      {userData.role && userData.role == "admin" && (
+        <button
+          type="button"
+          onClick={deleteAllipes}
+          className="bg-red-500 text-white font-bold p-3 rounded-full outline-none ms-auto"
+        >
+          delete all ipes
+        </button>
+      )}
     </div>
   );
 };
